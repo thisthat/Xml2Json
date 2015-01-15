@@ -26,26 +26,33 @@ NL  = \n | \r | \r\n
 
 %%
 
-/* operators */
-"+" | 
-"-" | 
-"*" | 
-"/" | 
-"^" | 
-"(" | 
-")"    { return (int) yycharat(0); }
+/* HEADER XML */
+"<?xml"			{ return Parser.OPEN_HEADER; }
+"?>"			{ return Parser.CLOSE_HEADER; }
+"<!"			{ return Parser.OPEN_DOCTIPE; }
 
-/* newline */
-{NL}   { return Parser.NL; }
+/* BASIC OPERATOR */
+"<"				{return Parser.OPEN;}
+">"				{return Parser.CLOSE;}
+"/"				{return Parser.SLASH;}
+"\""			{return Parser.QUOTE;}
+"="				{return Parser.EQUAL;}
 
-/* float */
+[;0-9aA-zZ.-]+ 					|
+[;0-9aA-zZ.-][;0-9aA-zZ.-\n\r]+	 {yyparser.yylval = new ParserVal(yytext()); return Parser.VALUE; }
+
+/* float
 {NUM}  { yyparser.yylval = new ParserVal(Double.parseDouble(yytext()));
          return Parser.NUM; }
+*/
+
+/* newline */
+{NL}   { }
 
 /* whitespace */
 [ \t]+ { }
 
-\b     { System.err.println("Sorry, backspace doesn't work"); }
+/* \b     { System.err.println("Sorry, backspace doesn't work"); } */
 
 /* error fallback */
 [^]    { System.err.println("Error: unexpected character '"+yytext()+"'"); return -1; }

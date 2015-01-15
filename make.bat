@@ -4,8 +4,8 @@ set FILE_NAME=calc
 set JFLEX_HOME= %~dp0bin\
 set CLPATH=%JAVA_HOME%\lib\classes.zip;%JFLEX_HOME%\lib\JFlex.jar
 
-
-del *.java
+del output\*.java
+del output\*.class
 
 bin\yacc -J %FILE_NAME%.y
 

@@ -14,9 +14,17 @@
 %{
   import java.io.*;
 %}
-      
-%token NL          /* newline  */
+
 %token <dval> NUM  /* a number */
+%token OPEN_HEADER
+%token CLOSE_HEADER
+%token OPEN_DOCTIPE
+%token OPEN
+%token CLOSE
+%token SLASH
+%token QUOTE
+%token EQUAL
+%token <dval> VALUE
 
 %type <dval> exp
 
