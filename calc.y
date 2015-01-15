@@ -46,20 +46,45 @@
 %token AUTHOR
 %token NOTE
 
+%token EDITION
+%token ID
+%token TITLE
+%token CAPTION
+%token PATH
+
       
 %%
 
 
-xml:  OPEN_HEADER  param param CLOSE_HEADER doctipe { };
+xml:  OPEN_HEADER param param CLOSE_HEADER doctipe book { };
 
 
-doctipe : OPEN_DOCTIPE VALUE VALUE QUOTE VALUE QUOTE CLOSE {}
+doctipe : OPEN_DOCTIPE BOOK VALUE QUOTE VALUE QUOTE CLOSE {}
 
-book : 
+book : OPEN BOOK CLOSE bookItems OPEN SLASH BOOK CLOSE                                   {}
+     | OPEN BOOK EDITION EQUAL QUOTE VALUE QUOTE CLOSE bookItems OPEN SLASH BOOK CLOSE   {}
 
-elements : /* empty */ 
-         | VALUE 
-         | VALUE elements
+bookItems : /*dedication /*preface partItems authornotes  */  {}
+
+dedication : /* empty */                                               {}
+           | OPEN DEDICATION CLOSE element OPEN SLASH DEDICATION CLOSE {}
+
+preface : OPEN PREFACE CLOSE element OPEN SLASH PREFACE CLOSE {}
+
+partItems : /* empty */ {}
+
+authornotes : /* empty */   {}
+            | notes         {}
+
+notes: note         {}
+     | note notes   {}
+
+note: element   {}
+
+elements :  /* empty */
+         | element elements
+
+element : VALUE 
          | OPEN VALUE params CLOSE elements OPEN SLASH VALUE CLOSE
 
 params : /* empty */

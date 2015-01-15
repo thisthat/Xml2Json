@@ -1,0 +1,1 @@
+java -cp output Parser < test.txt

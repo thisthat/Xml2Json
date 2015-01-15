@@ -24,7 +24,6 @@
   }
 %}
 
-NUM = [0-9]+ ("." [0-9]+)?
 NL  = \n | \r | \r\n
 
 %%
@@ -62,7 +61,7 @@ NL  = \n | \r | \r\n
 "note"				{ return Parser.NOTE; 	 	}
 
 /* STD ATTRIBUTES */
-"edition"		{ return Parser.EDIT;  	 }
+"edition"		{ return Parser.EDITION; }
 "id"			{ return Parser.ID;    	 }
 "title"			{ return Parser.TITLE; 	 }
 "caption"		{ return Parser.CAPTION; }
@@ -70,7 +69,7 @@ NL  = \n | \r | \r\n
 
 
 [;0-9aA-zZ.-]+ 					|
-[;0-9aA-zZ.-][;0-9aA-zZ.-\n\r]+	 {yyparser.yylval = new ParserVal(yytext()); return Parser.VALUE; }
+[;0-9aA-zZ.-][;0-9aA-zZ.-]+	 	{ yyparser.yylval = new ParserVal(yytext()); return Parser.VALUE; }
 
 /* float
 {NUM}  { yyparser.yylval = new ParserVal(Double.parseDouble(yytext()));
