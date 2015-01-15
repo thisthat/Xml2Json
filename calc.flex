@@ -15,6 +15,9 @@
 %{
   private Parser yyparser;
 
+  //To take care about line number in error reporting 
+  private int _line_cnt = 1;
+
   public Yylex(java.io.Reader r, Parser yyparser) {
     this(r);
     this.yyparser = yyparser;
@@ -29,14 +32,42 @@ NL  = \n | \r | \r\n
 /* HEADER XML */
 "<?xml"			{ return Parser.OPEN_HEADER; }
 "?>"			{ return Parser.CLOSE_HEADER; }
-"<!"			{ return Parser.OPEN_DOCTIPE; }
+"<!DOCTYPE"		{ return Parser.OPEN_DOCTIPE; }
 
-/* BASIC OPERATOR */
-"<"				{return Parser.OPEN;}
-">"				{return Parser.CLOSE;}
-"/"				{return Parser.SLASH;}
-"\""			{return Parser.QUOTE;}
-"="				{return Parser.EQUAL;}
+/* RESERVED CHARS */
+"<"				{ return Parser.OPEN;  }
+">"				{ return Parser.CLOSE; }
+"/"				{ return Parser.SLASH; }
+"\"" | "'"		{ return Parser.QUOTE; }
+"="				{ return Parser.EQUAL; }
+
+/* ELEMENTS FROM DTD -> filters xml by grammar and not via statical analysis of the AST*/
+
+/* STD NODES */
+"book"				{ return Parser.BOOK; 		}
+"dedication"		{ return Parser.DEDICATION; }
+"preface"			{ return Parser.PREFACE; 	}
+"part"				{ return Parser.PART; 		}
+"toc"				{ return Parser.TOC;  		}
+"lof"				{ return Parser.LOF;  		}
+"lot"				{ return Parser.LOT; 	 	}
+"item"				{ return Parser.ITEM; 		}
+"chapter"			{ return Parser.CHAPTER; 	}
+"section"			{ return Parser.SECTION; 	}
+"figure"			{ return Parser.FIGURE;  	}
+"table"				{ return Parser.TABLE; 	 	}
+"row"				{ return Parser.ROW;  	 	}
+"cell"				{ return Parser.CELL; 	 	}
+"authornotes"		{ return Parser.AUTHOR;  	}
+"note"				{ return Parser.NOTE; 	 	}
+
+/* STD ATTRIBUTES */
+"edition"		{ return Parser.EDIT;  	 }
+"id"			{ return Parser.ID;    	 }
+"title"			{ return Parser.TITLE; 	 }
+"caption"		{ return Parser.CAPTION; }
+"path"			{ return Parser.PATH; 	 }
+
 
 [;0-9aA-zZ.-]+ 					|
 [;0-9aA-zZ.-][;0-9aA-zZ.-\n\r]+	 {yyparser.yylval = new ParserVal(yytext()); return Parser.VALUE; }
@@ -46,13 +77,12 @@ NL  = \n | \r | \r\n
          return Parser.NUM; }
 */
 
-/* newline */
-{NL}   { }
+/* newline, just increase the counter */
+{NL}   { _line_cnt++; }
 
 /* whitespace */
 [ \t]+ { }
 
-/* \b     { System.err.println("Sorry, backspace doesn't work"); } */
 
-/* error fallback */
-[^]    { System.err.println("Error: unexpected character '"+yytext()+"'"); return -1; }
+/* error sink */
+[^]    { System.err.println("Error: unexpected character '"+yytext()+"' @" + _line_cnt ); return -1; }

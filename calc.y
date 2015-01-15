@@ -15,10 +15,12 @@
   import java.io.*;
 %}
 
-%token <dval> NUM  /* a number */
+/* HEADER XML */
 %token OPEN_HEADER
 %token CLOSE_HEADER
 %token OPEN_DOCTIPE
+
+/* RESERVED CHARS */
 %token OPEN
 %token CLOSE
 %token SLASH
@@ -26,33 +28,44 @@
 %token EQUAL
 %token <dval> VALUE
 
-%type <dval> exp
+/* STD NODES */
+%token BOOK
+%token DEDICATION
+%token PREFACE
+%token PART
+%token TOC
+%token LOF
+%token LOT
+%token ITEM
+%token CHAPTER
+%token SECTION
+%token FIGURE
+%token TABLE
+%token ROW
+%token CELL
+%token AUTHOR
+%token NOTE
 
-%left '-' '+'
-%left '*' '/'
-%left NEG          /* negation--unary minus */
-%right '^'         /* exponentiation        */
       
 %%
 
-input:   /* empty string */
-       | input line
-       ;
-      
-line:    NL      { if (interactive) System.out.print("Expression: "); }
-       | exp NL  { System.out.println(" = " + $1); 
-                   if (interactive) System.out.print("Expression: "); }
-       ;
-      
-exp:     NUM                { $$ = $1; }
-       | exp '+' exp        { $$ = $1 + $3; }
-       | exp '-' exp        { $$ = $1 - $3; }
-       | exp '*' exp        { $$ = $1 * $3; }
-       | exp '/' exp        { $$ = $1 / $3; }
-       | '-' exp  %prec NEG { $$ = -$2; }
-       | exp '^' exp        { $$ = Math.pow($1, $3); }
-       | '(' exp ')'        { $$ = $2; }
-       ;
+
+xml:  OPEN_HEADER  param param CLOSE_HEADER doctipe { };
+
+
+doctipe : OPEN_DOCTIPE VALUE VALUE QUOTE VALUE QUOTE CLOSE {}
+
+book : 
+
+elements : /* empty */ 
+         | VALUE 
+         | VALUE elements
+         | OPEN VALUE params CLOSE elements OPEN SLASH VALUE CLOSE
+
+params : /* empty */
+       | param params
+
+param : VALUE EQUAL QUOTE VALUE QUOTE {};      
 
 %%
 
@@ -94,8 +107,6 @@ exp:     NUM                { $$ = $1; }
     }
     else {
       // interactive mode
-      System.out.println("[Quit with CTRL-D]");
-      System.out.print("Expression: ");
       interactive = true;
 	    yyparser = new Parser(new InputStreamReader(System.in));
     }
@@ -104,6 +115,6 @@ exp:     NUM                { $$ = $1; }
     
     if (interactive) {
       System.out.println();
-      System.out.println("Have a nice day");
+      System.out.println("Tutto ok");
     }
   }
