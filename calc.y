@@ -25,7 +25,6 @@
 %token CLOSE
 %token SLASH
 %token QUOTE
-%token EQUAL
 %token <dval> VALUE
 
 /* STD NODES */
@@ -69,34 +68,105 @@
 %token TITLE
 %token CAPTION
 %token PATH
+%token VERSION
+%token ENCODING
 
       
 %%
 
+xml:  OPEN_HEADER version encoding CLOSE_HEADER doctipe book { System.out.println("Fine DOC"); }
 
-xml:  OPEN_HEADER param param CLOSE_HEADER doctipe book { };
+version : VERSION QUOTE VALUE QUOTE {}
+
+encoding : ENCODING QUOTE VALUE QUOTE {}
+
+doctipe : OPEN_DOCTIPE BOOK VALUE QUOTE VALUE QUOTE CLOSE {  }
 
 
-doctipe : OPEN_DOCTIPE BOOK VALUE QUOTE VALUE QUOTE CLOSE {System.out.println("Fine DOC"); }
+/*
+<!ELEMENT book (dedication?, preface, part+, authornotes?)>
+<!ATTLIST book
+    edition CDATA ""
+>
+*/
 
-book : OPEN_BOOK CLOSE bookItems CLOSE_BOOK CLOSE                                   {}
-     | OPEN_BOOK EDITION EQUAL QUOTE VALUE QUOTE CLOSE bookItems CLOSE_BOOK CLOSE   {}
+book : OPEN_BOOK bookAttr CLOSE bookItems CLOSE_BOOK CLOSE {}
 
-bookItems : dedication preface partItems /*authornotes  */  {}
-          | preface partItems {}
+bookAttr : /* empty */
+         | EDITION QUOTE VALUE QUOTE
 
+bookItems : dedication preface part /*authornotes  */  {}
+          | preface part {}
+
+/*
+<!ELEMENT dedication (#PCDATA)>
+*/
 dedication : OPEN_DEDICATION CLOSE string CLOSE_DEDICATION CLOSE  {}
 
+/* 
+<!ELEMENT preface (#PCDATA)>
+*/
 preface : OPEN_PREFACE CLOSE string CLOSE_PREFACE CLOSE {}
 
-partItems : OPEN_PART ID EQUAL QUOTE VALUE QUOTE CLOSE toc CLOSE_PART CLOSE{}
+/* 
+<!ELEMENT part (toc, chapter+, lof?, lot?)>
+<!ATTLIST part
+    id ID #REQUIRED
+    title CDATA ""
+>
+*/
+part : OPEN_PART partAttr CLOSE partItems CLOSE_PART CLOSE {}
 
+partAttr : ID QUOTE VALUE QUOTE
+         | ID QUOTE VALUE QUOTE TITLE QUOTE VALUE QUOTE 
+
+partItems : toc chapters
+
+/*
+<!ELEMENT toc (item+)>
+*/
 toc : OPEN_TOC CLOSE items CLOSE_TOC CLOSE {}
 
-items : item        { System.out.println("Fine ITEMS"); }
-      | item items  { System.out.println("Continua ITEMS");} 
+chapters : chapter
+         | chapter chapters
 
-item : OPEN_ITEM ID EQUAL QUOTE VALUE QUOTE CLOSE string CLOSE_ITEM CLOSE { System.out.println("Fine uno ITEMS"); }
+/*
+<!ELEMENT chapter (section+)>
+<!ATTLIST chapter
+    id ID #REQUIRED
+    title CDATA #REQUIRED
+>
+*/
+chapter : OPEN_CHAPTER chapterAttr CLOSE sections CLOSE_CHAPTER CLOSE {}
+
+chapterAttr : ID QUOTE string QUOTE TITLE QUOTE string QUOTE {}
+
+/*
+<!ELEMENT section (#PCDATA|section|figure|table)*>
+<!ATTLIST section
+  id ID #REQUIRED
+  title CDATA #REQUIRED
+>
+*/
+sections : section {}
+         | section sections {}
+
+section : OPEN_SECTION sectionsAttr CLOSE sectionsItems CLOSE_SECTION CLOSE {}
+
+sectionAttr : ID QUOTE string QUOTE TITLE QUOTE string QUOTE {}
+
+sectionsItems : /* empty */ {}
+              | string sectionsItems {}
+              | section sectionsItems {}
+              | figure sectionsItems {}
+              | table sectionsItems {}
+
+
+
+items : item        {  }
+      | item items  {  } 
+
+item : OPEN_ITEM ID QUOTE VALUE QUOTE CLOSE string CLOSE_ITEM CLOSE { }
 
 authornotes : /* empty */   {}
             | notes         {}
@@ -113,12 +183,7 @@ element : VALUE
          | OPEN_VALUE params CLOSE elements CLOSE_VALUE CLOSE
 
 string : VALUE        {}
-       | VALUE string {}
-
-params : /* empty */
-       | param params
-
-param : VALUE EQUAL QUOTE VALUE QUOTE {};      
+       | VALUE string {}      
 
 %%
 
@@ -139,7 +204,7 @@ param : VALUE EQUAL QUOTE VALUE QUOTE {};
 
 
   public void yyerror (String error) {
-    System.err.println ("Error: " + error + " :: Character: " + lexer.yytext() + " @" + lexer._line_cnt );
+    System.err.println ("Error: " + error + " :: Token value: " + lexer.yytext() + " @" + lexer._line_cnt );
   }
 
 

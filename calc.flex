@@ -20,6 +20,7 @@
   private Parser yyparser;
 
   //To take care about line number in error reporting 
+  //Public to let the parser see the token line
   public int _line_cnt = 1;
 
   public Yylex(java.io.Reader r, Parser yyparser) {
@@ -77,28 +78,23 @@ NL  = \n | \r | \r\n
 "</note"			{ return Parser.CLOSE_NOTE; 	 	}
 
 /* STD ATTRIBUTES */
-"edition"		{ return Parser.EDITION; }
-"id"			{ return Parser.ID;    	 }
-"title"			{ return Parser.TITLE; 	 }
-"caption"		{ return Parser.CAPTION; }
-"path"			{ return Parser.PATH; 	 }
-
+"edition="		{ return Parser.EDITION; }
+"id="			{ return Parser.ID;    	 }
+"title="		{ return Parser.TITLE; 	 }
+"caption="		{ return Parser.CAPTION; }
+"path="			{ return Parser.PATH; 	 }
+"version="		{ return Parser.VERSION; }
+"encoding="		{ return Parser.ENCODING;}
 
 /* RESERVED CHARS */
 
-">"				{ if(this._DEBUG_){System.out.println(yytext()); }return Parser.CLOSE; }
-"/"				{ if(this._DEBUG_){System.out.println(yytext()); } return Parser.SLASH; }
+">"				{ return Parser.CLOSE; }
+"/"				{ return Parser.SLASH; }
 "\"" | "'"		{ return Parser.QUOTE; }
-"="				{ return Parser.EQUAL; }
 
 
-[;0-9aA-zZ\.-]+ 							|
-[;0-9aA-zZ\.-][;0-9aA-zZ\.\-\,]+	 	{ if(this._DEBUG_){System.out.println(yytext()); } yyparser.yylval = new ParserVal(yytext()); return Parser.VALUE; }
-
-/* float
-{NUM}  { yyparser.yylval = new ParserVal(Double.parseDouble(yytext()));
-         return Parser.NUM; }
-*/
+[;0-9aA-zZ\.\-]+ 						| /* handle single value, the bottom rules is necessary to avoid 'comma' as single VALUE token */
+[;0-9aA-zZ\.\-][;0-9aA-zZ\.\-\,]+	 	{ if(this._DEBUG_){System.out.println(yytext()); } yyparser.yylval = new ParserVal(yytext()); return Parser.VALUE; }
 
 /* newline, just increase the counter */
 {NL}   { _line_cnt++; }
