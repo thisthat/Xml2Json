@@ -95,8 +95,10 @@ book : OPEN_BOOK bookAttr CLOSE bookItems CLOSE_BOOK CLOSE {}
 bookAttr : /* empty */
          | EDITION QUOTE VALUE QUOTE
 
-bookItems : dedication preface part /*authornotes  */  {}
-          | preface part {}
+bookItems : dedication preface parts authornotes  {}
+          | dedication preface parts {}
+          | preface parts authornotes {}
+          | preface parts {}
 
 /*
 <!ELEMENT dedication (#PCDATA)>
@@ -115,20 +117,43 @@ preface : OPEN_PREFACE CLOSE string CLOSE_PREFACE CLOSE {}
     title CDATA ""
 >
 */
+parts : part        {}
+      | part parts  {}
+
 part : OPEN_PART partAttr CLOSE partItems CLOSE_PART CLOSE {}
 
-partAttr : ID QUOTE VALUE QUOTE
-         | ID QUOTE VALUE QUOTE TITLE QUOTE VALUE QUOTE 
+partAttr : idAttr
+         | idAttr TITLE QUOTE VALUE QUOTE 
 
-partItems : toc chapters
+partItems : toc chapters 
+          | toc chapters lof
+          | toc chapters lot
+          | toc chapters lof lot
 
 /*
 <!ELEMENT toc (item+)>
+<!ELEMENT lof (item+)>
+<!ELEMENT lot (item+)>
 */
 toc : OPEN_TOC CLOSE items CLOSE_TOC CLOSE {}
 
+lof : OPEN_LOF CLOSE items CLOSE_LOF CLOSE {}
+
+lot : OPEN_LOT CLOSE items CLOSE_LOT CLOSE {}
+
 chapters : chapter
          | chapter chapters
+
+/*
+<!ELEMENT item (#PCDATA)>
+<!ATTLIST item
+  id IDREF #REQUIRED
+>
+*/
+items : item        {  }
+      | item items  {  } 
+
+item : OPEN_ITEM idAttr CLOSE string CLOSE_ITEM CLOSE { }
 
 /*
 <!ELEMENT chapter (section+)>
@@ -139,7 +164,7 @@ chapters : chapter
 */
 chapter : OPEN_CHAPTER chapterAttr CLOSE sections CLOSE_CHAPTER CLOSE {}
 
-chapterAttr : ID QUOTE string QUOTE TITLE QUOTE string QUOTE {}
+chapterAttr : idAttr TITLE QUOTE string QUOTE {}
 
 /*
 <!ELEMENT section (#PCDATA|section|figure|table)*>
@@ -151,9 +176,9 @@ chapterAttr : ID QUOTE string QUOTE TITLE QUOTE string QUOTE {}
 sections : section {}
          | section sections {}
 
-section : OPEN_SECTION sectionsAttr CLOSE sectionsItems CLOSE_SECTION CLOSE {}
+section : OPEN_SECTION sectionAttr CLOSE sectionsItems CLOSE_SECTION CLOSE {}
 
-sectionAttr : ID QUOTE string QUOTE TITLE QUOTE string QUOTE {}
+sectionAttr : idAttr TITLE QUOTE string QUOTE {}
 
 sectionsItems : /* empty */ {}
               | string sectionsItems {}
@@ -161,29 +186,68 @@ sectionsItems : /* empty */ {}
               | figure sectionsItems {}
               | table sectionsItems {}
 
+/* 
+<!ELEMENT figure EMPTY>
+<!ATTLIST figure
+  id ID #REQUIRED
+  caption CDATA #REQUIRED
+  path CDATA "placeholder.jpg" -> by rules reduction
+>
+*/
+figure : OPEN_FIGURE figureAttr SLASH CLOSE {}
+
+figureAttr : idAttr CAPTION QUOTE string QUOTE {}
+           | idAttr CAPTION QUOTE string QUOTE PATH QUOTE string QUOTE {}
 
 
-items : item        {  }
-      | item items  {  } 
+/*
+<!ELEMENT table (row+)>
+<!ATTLIST table
+  id ID #REQUIRED
+  caption CDATA #REQUIRED
+>
+*/
+table : OPEN_TABLE tableAttr CLOSE tableItems CLOSE_TABLE CLOSE {}
 
-item : OPEN_ITEM ID QUOTE VALUE QUOTE CLOSE string CLOSE_ITEM CLOSE { }
+tableAttr : idAttr CAPTION QUOTE string QUOTE
 
-authornotes : /* empty */   {}
-            | notes         {}
+tableItems : row {}
+           | row tableItems {}
 
-notes: note         {}
-     | note notes   {}
+/*
+<!ELEMENT row (cell+)>
+<!ELEMENT cell (#PCDATA)>
+*/
+row : OPEN_ROW CLOSE cells CLOSE_ROW CLOSE {}
 
-note: element   {}
+cells : cell
+     | cell cells
 
-elements : element
-         | element elements
+cell : OPEN_CELL CLOSE string CLOSE_CELL CLOSE {}
 
-element : VALUE 
-         | OPEN_VALUE params CLOSE elements CLOSE_VALUE CLOSE
+
+/*
+<!ELEMENT authornotes (note+)>
+*/
+authornotes : OPEN_AUTHOR CLOSE notes CLOSE_AUTHOR CLOSE  {}
+
+/*
+<!ELEMENT note (#PCDATA)>
+*/
+
+notes : note        {}
+      | note notes {}
+
+
+note : OPEN_NOTE CLOSE string CLOSE_NOTE CLOSE {}
+
+
 
 string : VALUE        {}
        | VALUE string {}      
+
+idAttr :  ID QUOTE string QUOTE
+
 
 %%
 

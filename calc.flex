@@ -27,6 +27,10 @@
     this(r);
     this.yyparser = yyparser;
   }
+
+  public void print(){
+  	System.out.println(yytext());
+  }
 %}
 
 NL  = \n | \r | \r\n
@@ -43,7 +47,7 @@ NL  = \n | \r | \r\n
 /* ELEMENTS FROM DTD -> filters xml by grammar and not via statical analysis of the AST*/
 
 /* STD NODES */
-"<book"				{ return Parser.OPEN_BOOK; 		}
+"<book"				{ return Parser.OPEN_BOOK; 		 }
 "<dedication"		{ return Parser.OPEN_DEDICATION; }
 "<preface"			{ return Parser.OPEN_PREFACE; 	}
 "<part"				{ return Parser.OPEN_PART; 		}
@@ -94,7 +98,7 @@ NL  = \n | \r | \r\n
 
 
 [;0-9aA-zZ\.\-]+ 						| /* handle single value, the bottom rules is necessary to avoid 'comma' as single VALUE token */
-[;0-9aA-zZ\.\-][;0-9aA-zZ\.\-\,]+	 	{ if(this._DEBUG_){System.out.println(yytext()); } yyparser.yylval = new ParserVal(yytext()); return Parser.VALUE; }
+[;0-9aA-zZ\.\-][;0-9aA-zZ\.\-\,]+	 	{ yyparser.yylval = new ParserVal(yytext()); return Parser.VALUE; }
 
 /* newline, just increase the counter */
 {NL}   { _line_cnt++; }
