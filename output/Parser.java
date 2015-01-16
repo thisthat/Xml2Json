@@ -159,93 +159,133 @@ final ParserVal dup_yyval(ParserVal val)
 public final static short OPEN_HEADER=257;
 public final static short CLOSE_HEADER=258;
 public final static short OPEN_DOCTIPE=259;
-public final static short OPEN=260;
+public final static short BOOK=260;
 public final static short CLOSE=261;
 public final static short SLASH=262;
 public final static short QUOTE=263;
 public final static short EQUAL=264;
 public final static short VALUE=265;
-public final static short BOOK=266;
-public final static short DEDICATION=267;
-public final static short PREFACE=268;
-public final static short PART=269;
-public final static short TOC=270;
-public final static short LOF=271;
-public final static short LOT=272;
-public final static short ITEM=273;
-public final static short CHAPTER=274;
-public final static short SECTION=275;
-public final static short FIGURE=276;
-public final static short TABLE=277;
-public final static short ROW=278;
-public final static short CELL=279;
-public final static short AUTHOR=280;
-public final static short NOTE=281;
-public final static short EDITION=282;
-public final static short ID=283;
-public final static short TITLE=284;
-public final static short CAPTION=285;
-public final static short PATH=286;
+public final static short OPEN_BOOK=266;
+public final static short OPEN_DEDICATION=267;
+public final static short OPEN_PREFACE=268;
+public final static short OPEN_PART=269;
+public final static short OPEN_TOC=270;
+public final static short OPEN_LOF=271;
+public final static short OPEN_LOT=272;
+public final static short OPEN_ITEM=273;
+public final static short OPEN_CHAPTER=274;
+public final static short OPEN_SECTION=275;
+public final static short OPEN_FIGURE=276;
+public final static short OPEN_TABLE=277;
+public final static short OPEN_ROW=278;
+public final static short OPEN_CELL=279;
+public final static short OPEN_AUTHOR=280;
+public final static short OPEN_NOTE=281;
+public final static short CLOSE_BOOK=282;
+public final static short CLOSE_DEDICATION=283;
+public final static short CLOSE_PREFACE=284;
+public final static short CLOSE_PART=285;
+public final static short CLOSE_TOC=286;
+public final static short CLOSE_LOF=287;
+public final static short CLOSE_LOT=288;
+public final static short CLOSE_ITEM=289;
+public final static short CLOSE_CHAPTER=290;
+public final static short CLOSE_SECTION=291;
+public final static short CLOSE_FIGURE=292;
+public final static short CLOSE_TABLE=293;
+public final static short CLOSE_ROW=294;
+public final static short CLOSE_CELL=295;
+public final static short CLOSE_AUTHOR=296;
+public final static short CLOSE_NOTE=297;
+public final static short EDITION=298;
+public final static short ID=299;
+public final static short TITLE=300;
+public final static short CAPTION=301;
+public final static short PATH=302;
+public final static short OPEN_VALUE=303;
+public final static short CLOSE_VALUE=304;
 public final static short YYERRCODE=256;
 final static short yylhs[] = {                           -1,
-    0,    2,    3,    3,    4,    5,    5,    7,    8,    9,
-    9,   10,   10,   11,   12,   12,    6,    6,   13,   13,
-    1,
+    0,    2,    3,    3,    4,    4,    5,    6,    7,    9,
+   10,   10,   11,   12,   12,   13,   13,   14,   16,   16,
+   15,   15,    8,    8,   17,   17,    1,
 };
 final static short yylen[] = {                            2,
-    6,    7,    8,   13,    0,    0,    8,    8,    0,    0,
-    1,    1,    2,    1,    0,    2,    1,    9,    0,    2,
-    5,
+    6,    7,    5,   10,    3,    2,    5,    5,   10,    5,
+    1,    2,   10,    0,    1,    1,    2,    1,    1,    2,
+    1,    6,    1,    2,    0,    2,    5,
 };
 final static short yydefred[] = {                         0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,   21,    0,    0,    1,    0,    0,    0,    5,    0,
-    0,    0,    0,    0,    0,    0,    2,    0,    0,    0,
-    0,    3,    5,    0,    0,    0,    0,    4,
+    0,   27,    0,    0,    1,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    6,    0,    0,    0,    0,    0,    3,    5,    0,
+    0,    2,   24,    0,    0,    0,    0,    7,    8,    0,
+    0,    0,    0,    0,    0,    0,    4,    0,    0,    0,
+    0,    0,    0,    0,    9,    0,    0,   12,    0,   10,
+    0,    0,    0,    0,    0,    0,   13,
 };
 final static short yydgoto[] = {                          2,
-    4,   11,   15,   22,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,
+    4,   11,   15,   22,   23,   24,   32,   36,   59,   63,
+   64,    0,    0,    0,    0,    0,    0,
 };
-final static short yysindex[] = {                      -256,
- -263,    0, -260, -263, -258, -255, -259, -252, -254, -253,
- -250,    0, -257, -251,    0, -249, -261, -248,    0, -246,
- -247, -241, -243, -239, -238, -242,    0, -240, -236, -233,
- -232,    0,    0, -235, -231, -234, -228,    0,
+final static short yysindex[] = {                      -251,
+ -256,    0, -254, -256, -252, -246, -250, -245, -247, -243,
+ -253,    0, -244, -260,    0, -241, -263, -240, -242, -236,
+ -235, -264, -249, -239, -234, -232, -238, -238, -233, -239,
+ -279,    0, -231, -229, -238, -248, -237,    0,    0, -228,
+ -230,    0,    0, -224, -222, -223, -220,    0,    0, -221,
+ -263, -218, -227, -219, -213, -217,    0, -212, -226, -216,
+ -211, -225, -215, -216,    0, -210, -209,    0, -207,    0,
+ -214, -205, -201, -238, -208, -200,    0,
 };
 final static short yyrindex[] = {                         0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0, -281,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0, -206,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,
 };
 final static short yygindex[] = {                         0,
-    7,    0,    0,  -21,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,
+   39,    0,    0,   11,    0,   40,   34,  -28,    0,    1,
+    0,    0,    0,    0,    0,    0,    0,
 };
-final static int YYTABLESIZE=33;
+final static int YYTABLESIZE=81;
 static short yytable[];
 static { yytable();}
 static void yytable(){
-yytable = new short[]{                         19,
-    1,    3,    8,    5,    7,    9,   10,   16,   12,   14,
-    6,   34,   13,   18,   17,   24,   21,   23,   25,   26,
-   20,   27,   29,   28,   35,   30,   31,   32,   33,    0,
-   36,   37,   38,
+yytable = new short[]{                         37,
+   17,   23,   23,   20,   21,    1,   43,   23,    3,    5,
+    7,    8,   14,   10,    9,   12,   13,   29,   21,   40,
+   16,   19,   26,   25,   27,   28,   35,   38,   33,   31,
+   34,   42,   47,   41,   44,   46,   48,   18,   49,   50,
+   51,   56,    6,   52,   54,   75,   45,   57,   60,   65,
+   72,   70,   58,   69,   55,   71,   62,   73,   61,   74,
+   77,   53,   30,   39,   68,    0,    0,    0,    0,    0,
+   67,    0,    0,   66,    0,    0,    0,    0,    0,   11,
+   76,
 };
 }
 static short yycheck[];
 static { yycheck(); }
 static void yycheck() {
-yycheck = new short[] {                        261,
-  257,  265,  258,  264,  263,  265,  259,  265,  263,  260,
-    4,   33,  266,  263,  266,  263,  265,  264,  260,  263,
-  282,  261,  265,  262,  260,  266,  263,  261,  261,   -1,
-  262,  266,  261,
+yycheck = new short[] {                         28,
+  261,  283,  284,  267,  268,  257,   35,  289,  265,  264,
+  263,  258,  266,  259,  265,  263,  260,  282,  268,  299,
+  265,  263,  265,  264,  261,  261,  265,  261,  263,  269,
+  263,  261,  263,  265,  283,  264,  261,  298,  261,  263,
+  261,  261,    4,  265,  263,   74,  284,  261,  261,  261,
+  265,  261,  270,  264,  282,  263,  273,  263,  285,  261,
+  261,   51,   23,   30,   64,   -1,   -1,   -1,   -1,   -1,
+  286,   -1,   -1,  299,   -1,   -1,   -1,   -1,   -1,  286,
+  289,
 };
 }
 final static short YYFINAL=2;
-final static short YYMAXTOKEN=286;
+final static short YYMAXTOKEN=304;
 final static String yyname[] = {
 "end-of-file",null,null,null,null,null,null,null,null,null,null,null,null,null,
 null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
@@ -263,37 +303,48 @@ null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
 null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
 null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
 null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
-null,null,null,"OPEN_HEADER","CLOSE_HEADER","OPEN_DOCTIPE","OPEN","CLOSE",
-"SLASH","QUOTE","EQUAL","VALUE","BOOK","DEDICATION","PREFACE","PART","TOC",
-"LOF","LOT","ITEM","CHAPTER","SECTION","FIGURE","TABLE","ROW","CELL","AUTHOR",
-"NOTE","EDITION","ID","TITLE","CAPTION","PATH",
+null,null,null,"OPEN_HEADER","CLOSE_HEADER","OPEN_DOCTIPE","BOOK","CLOSE",
+"SLASH","QUOTE","EQUAL","VALUE","OPEN_BOOK","OPEN_DEDICATION","OPEN_PREFACE",
+"OPEN_PART","OPEN_TOC","OPEN_LOF","OPEN_LOT","OPEN_ITEM","OPEN_CHAPTER",
+"OPEN_SECTION","OPEN_FIGURE","OPEN_TABLE","OPEN_ROW","OPEN_CELL","OPEN_AUTHOR",
+"OPEN_NOTE","CLOSE_BOOK","CLOSE_DEDICATION","CLOSE_PREFACE","CLOSE_PART",
+"CLOSE_TOC","CLOSE_LOF","CLOSE_LOT","CLOSE_ITEM","CLOSE_CHAPTER",
+"CLOSE_SECTION","CLOSE_FIGURE","CLOSE_TABLE","CLOSE_ROW","CLOSE_CELL",
+"CLOSE_AUTHOR","CLOSE_NOTE","EDITION","ID","TITLE","CAPTION","PATH",
+"OPEN_VALUE","CLOSE_VALUE",
 };
 final static String yyrule[] = {
 "$accept : xml",
 "xml : OPEN_HEADER param param CLOSE_HEADER doctipe book",
 "doctipe : OPEN_DOCTIPE BOOK VALUE QUOTE VALUE QUOTE CLOSE",
-"book : OPEN BOOK CLOSE bookItems OPEN SLASH BOOK CLOSE",
-"book : OPEN BOOK EDITION EQUAL QUOTE VALUE QUOTE CLOSE bookItems OPEN SLASH BOOK CLOSE",
-"bookItems :",
-"dedication :",
-"dedication : OPEN DEDICATION CLOSE element OPEN SLASH DEDICATION CLOSE",
-"preface : OPEN PREFACE CLOSE element OPEN SLASH PREFACE CLOSE",
-"partItems :",
+"book : OPEN_BOOK CLOSE bookItems CLOSE_BOOK CLOSE",
+"book : OPEN_BOOK EDITION EQUAL QUOTE VALUE QUOTE CLOSE bookItems CLOSE_BOOK CLOSE",
+"bookItems : dedication preface partItems",
+"bookItems : preface partItems",
+"dedication : OPEN_DEDICATION CLOSE string CLOSE_DEDICATION CLOSE",
+"preface : OPEN_PREFACE CLOSE string CLOSE_PREFACE CLOSE",
+"partItems : OPEN_PART ID EQUAL QUOTE VALUE QUOTE CLOSE toc CLOSE_PART CLOSE",
+"toc : OPEN_TOC CLOSE items CLOSE_TOC CLOSE",
+"items : item",
+"items : item items",
+"item : OPEN_ITEM ID EQUAL QUOTE VALUE QUOTE CLOSE string CLOSE_ITEM CLOSE",
 "authornotes :",
 "authornotes : notes",
 "notes : note",
 "notes : note notes",
 "note : element",
-"elements :",
+"elements : element",
 "elements : element elements",
 "element : VALUE",
-"element : OPEN VALUE params CLOSE elements OPEN SLASH VALUE CLOSE",
+"element : OPEN_VALUE params CLOSE elements CLOSE_VALUE CLOSE",
+"string : VALUE",
+"string : VALUE string",
 "params :",
 "params : param params",
 "param : VALUE EQUAL QUOTE VALUE QUOTE",
 };
 
-//#line 96 "calc.y"
+//#line 124 "calc.y"
 
   private Yylex lexer;
 
@@ -312,7 +363,7 @@ final static String yyrule[] = {
 
 
   public void yyerror (String error) {
-    System.err.println ("Error: " + error);
+    System.err.println ("Error: " + error + " :: Character: " + lexer.yytext() + " @" + lexer._line_cnt );
   }
 
 
@@ -344,7 +395,7 @@ final static String yyrule[] = {
       System.out.println("Tutto ok");
     }
   }
-//#line 276 "Parser.java"
+//#line 327 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -499,66 +550,90 @@ boolean doaction;
       {
 //########## USER-SUPPLIED ACTIONS ##########
 case 1:
-//#line 59 "calc.y"
+//#line 77 "calc.y"
 { }
 break;
 case 2:
-//#line 62 "calc.y"
-{}
+//#line 80 "calc.y"
+{System.out.println("Fine DOC"); }
 break;
 case 3:
-//#line 64 "calc.y"
-{}
-break;
-case 4:
-//#line 65 "calc.y"
-{}
-break;
-case 5:
-//#line 67 "calc.y"
-{}
-break;
-case 6:
-//#line 69 "calc.y"
-{}
-break;
-case 7:
-//#line 70 "calc.y"
-{}
-break;
-case 8:
-//#line 72 "calc.y"
-{}
-break;
-case 9:
-//#line 74 "calc.y"
-{}
-break;
-case 10:
-//#line 76 "calc.y"
-{}
-break;
-case 11:
-//#line 77 "calc.y"
-{}
-break;
-case 12:
-//#line 79 "calc.y"
-{}
-break;
-case 13:
-//#line 80 "calc.y"
-{}
-break;
-case 14:
 //#line 82 "calc.y"
 {}
 break;
-case 21:
-//#line 93 "calc.y"
+case 4:
+//#line 83 "calc.y"
 {}
 break;
-//#line 485 "Parser.java"
+case 5:
+//#line 85 "calc.y"
+{}
+break;
+case 6:
+//#line 86 "calc.y"
+{}
+break;
+case 7:
+//#line 88 "calc.y"
+{}
+break;
+case 8:
+//#line 90 "calc.y"
+{}
+break;
+case 9:
+//#line 92 "calc.y"
+{}
+break;
+case 10:
+//#line 94 "calc.y"
+{}
+break;
+case 11:
+//#line 96 "calc.y"
+{ System.out.println("Fine ITEMS"); }
+break;
+case 12:
+//#line 97 "calc.y"
+{ System.out.println("Continua ITEMS");}
+break;
+case 13:
+//#line 99 "calc.y"
+{ System.out.println("Fine uno ITEMS"); }
+break;
+case 14:
+//#line 101 "calc.y"
+{}
+break;
+case 15:
+//#line 102 "calc.y"
+{}
+break;
+case 16:
+//#line 104 "calc.y"
+{}
+break;
+case 17:
+//#line 105 "calc.y"
+{}
+break;
+case 18:
+//#line 107 "calc.y"
+{}
+break;
+case 23:
+//#line 115 "calc.y"
+{}
+break;
+case 24:
+//#line 116 "calc.y"
+{}
+break;
+case 27:
+//#line 121 "calc.y"
+{}
+break;
+//#line 560 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####

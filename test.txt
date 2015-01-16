@@ -1,9 +1,32 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE book SYSTEM "book.dtd">
 <book>
-	
-
-
+	<dedication>
+ 		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam varius turpis vel tellus aliquam,
+		sit amet condimentum turpis eleifend. Vivamus lobortis lacus eu mi placerat malesuada. Nullam
+		cursus, massa vitae adipiscing tempus, orci arcu imperdiet neque, ut adipiscing dolor tortor nec
+		erat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In quis
+		dui nulla. Etiam fermentum lectus vel sapien facilisis rutrum.
+	</dedication>
+	<preface>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam varius turpis vel tellus aliquam,
+		sit amet condimentum turpis eleifend. Vivamus lobortis lacus eu mi placerat malesuada. Nullam
+		cursus, massa vitae adipiscing tempus, orci arcu imperdiet neque, ut adipiscing dolor tortor nec
+		erat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In quis
+		dui nulla. Etiam fermentum lectus vel sapien facilisis rutrum.
+	</preface>
+	<part id="p1">
+		<toc>
+			<item id="p1_c1">Capitolo 1</item>
+			<item id="p1_c1_s1">Sezione 1</item>
+			<item id="p1_c1_s2">Sezione 2</item>
+			<item id="p1_c1_s21">Sottosezione 2.1</item>
+			<item id="p1_c1_s22">Sottosezione 2.2</item>
+			<item id="p1_c1_s221">Sottosezione 2.2.1</item>
+			<item id="p1_c1_s23">Sottosezione 2.3</item>
+			<item id="p1_c1_s3">Sezione 3</item>
+		</toc>
+	</part>
 
 </book>
 

@@ -21,7 +21,7 @@
 %token OPEN_DOCTIPE
 
 /* RESERVED CHARS */
-%token OPEN
+%token BOOK
 %token CLOSE
 %token SLASH
 %token QUOTE
@@ -29,23 +29,41 @@
 %token <dval> VALUE
 
 /* STD NODES */
-%token BOOK
-%token DEDICATION
-%token PREFACE
-%token PART
-%token TOC
-%token LOF
-%token LOT
-%token ITEM
-%token CHAPTER
-%token SECTION
-%token FIGURE
-%token TABLE
-%token ROW
-%token CELL
-%token AUTHOR
-%token NOTE
+%token OPEN_BOOK
+%token OPEN_DEDICATION
+%token OPEN_PREFACE
+%token OPEN_PART
+%token OPEN_TOC
+%token OPEN_LOF
+%token OPEN_LOT
+%token OPEN_ITEM
+%token OPEN_CHAPTER
+%token OPEN_SECTION
+%token OPEN_FIGURE
+%token OPEN_TABLE
+%token OPEN_ROW
+%token OPEN_CELL
+%token OPEN_AUTHOR
+%token OPEN_NOTE
 
+%token CLOSE_BOOK
+%token CLOSE_DEDICATION
+%token CLOSE_PREFACE
+%token CLOSE_PART
+%token CLOSE_TOC
+%token CLOSE_LOF
+%token CLOSE_LOT
+%token CLOSE_ITEM
+%token CLOSE_CHAPTER
+%token CLOSE_SECTION
+%token CLOSE_FIGURE
+%token CLOSE_TABLE
+%token CLOSE_ROW
+%token CLOSE_CELL
+%token CLOSE_AUTHOR
+%token CLOSE_NOTE
+
+/* STD ATTR */
 %token EDITION
 %token ID
 %token TITLE
@@ -59,19 +77,26 @@
 xml:  OPEN_HEADER param param CLOSE_HEADER doctipe book { };
 
 
-doctipe : OPEN_DOCTIPE BOOK VALUE QUOTE VALUE QUOTE CLOSE {}
+doctipe : OPEN_DOCTIPE BOOK VALUE QUOTE VALUE QUOTE CLOSE {System.out.println("Fine DOC"); }
 
-book : OPEN BOOK CLOSE bookItems OPEN SLASH BOOK CLOSE                                   {}
-     | OPEN BOOK EDITION EQUAL QUOTE VALUE QUOTE CLOSE bookItems OPEN SLASH BOOK CLOSE   {}
+book : OPEN_BOOK CLOSE bookItems CLOSE_BOOK CLOSE                                   {}
+     | OPEN_BOOK EDITION EQUAL QUOTE VALUE QUOTE CLOSE bookItems CLOSE_BOOK CLOSE   {}
 
-bookItems : /*dedication /*preface partItems authornotes  */  {}
+bookItems : dedication preface partItems /*authornotes  */  {}
+          | preface partItems {}
 
-dedication : /* empty */                                               {}
-           | OPEN DEDICATION CLOSE element OPEN SLASH DEDICATION CLOSE {}
+dedication : OPEN_DEDICATION CLOSE string CLOSE_DEDICATION CLOSE  {}
 
-preface : OPEN PREFACE CLOSE element OPEN SLASH PREFACE CLOSE {}
+preface : OPEN_PREFACE CLOSE string CLOSE_PREFACE CLOSE {}
 
-partItems : /* empty */ {}
+partItems : OPEN_PART ID EQUAL QUOTE VALUE QUOTE CLOSE toc CLOSE_PART CLOSE{}
+
+toc : OPEN_TOC CLOSE items CLOSE_TOC CLOSE {}
+
+items : item        { System.out.println("Fine ITEMS"); }
+      | item items  { System.out.println("Continua ITEMS");} 
+
+item : OPEN_ITEM ID EQUAL QUOTE VALUE QUOTE CLOSE string CLOSE_ITEM CLOSE { System.out.println("Fine uno ITEMS"); }
 
 authornotes : /* empty */   {}
             | notes         {}
@@ -81,11 +106,14 @@ notes: note         {}
 
 note: element   {}
 
-elements :  /* empty */
+elements : element
          | element elements
 
 element : VALUE 
-         | OPEN VALUE params CLOSE elements OPEN SLASH VALUE CLOSE
+         | OPEN_VALUE params CLOSE elements CLOSE_VALUE CLOSE
+
+string : VALUE        {}
+       | VALUE string {}
 
 params : /* empty */
        | param params
@@ -111,7 +139,7 @@ param : VALUE EQUAL QUOTE VALUE QUOTE {};
 
 
   public void yyerror (String error) {
-    System.err.println ("Error: " + error);
+    System.err.println ("Error: " + error + " :: Character: " + lexer.yytext() + " @" + lexer._line_cnt );
   }
 
 
