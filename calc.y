@@ -25,7 +25,7 @@
 %token CLOSE
 %token SLASH
 %token QUOTE
-%token <dval> VALUE
+%token <sval> VALUE
 
 /* STD NODES */
 %token OPEN_BOOK
@@ -71,7 +71,8 @@
 %token VERSION
 %token ENCODING
 
-      
+%type <sval> str
+
 %%
 
 xml:  OPEN_HEADER version encoding CLOSE_HEADER doctipe book { System.out.println("Fine DOC"); }
@@ -103,12 +104,12 @@ bookItems : dedication preface parts authornotes  {}
 /*
 <!ELEMENT dedication (#PCDATA)>
 */
-dedication : OPEN_DEDICATION CLOSE string CLOSE_DEDICATION CLOSE  {}
+dedication : OPEN_DEDICATION CLOSE str CLOSE_DEDICATION CLOSE  {}
 
 /* 
 <!ELEMENT preface (#PCDATA)>
 */
-preface : OPEN_PREFACE CLOSE string CLOSE_PREFACE CLOSE {}
+preface : OPEN_PREFACE CLOSE str CLOSE_PREFACE CLOSE {}
 
 /* 
 <!ELEMENT part (toc, chapter+, lof?, lot?)>
@@ -153,7 +154,7 @@ chapters : chapter
 items : item        {  }
       | item items  {  } 
 
-item : OPEN_ITEM idAttr CLOSE string CLOSE_ITEM CLOSE { }
+item : OPEN_ITEM idAttr CLOSE str CLOSE_ITEM CLOSE { }
 
 /*
 <!ELEMENT chapter (section+)>
@@ -164,7 +165,7 @@ item : OPEN_ITEM idAttr CLOSE string CLOSE_ITEM CLOSE { }
 */
 chapter : OPEN_CHAPTER chapterAttr CLOSE sections CLOSE_CHAPTER CLOSE {}
 
-chapterAttr : idAttr TITLE QUOTE string QUOTE {}
+chapterAttr : idAttr TITLE QUOTE str QUOTE {}
 
 /*
 <!ELEMENT section (#PCDATA|section|figure|table)*>
@@ -178,10 +179,10 @@ sections : section {}
 
 section : OPEN_SECTION sectionAttr CLOSE sectionsItems CLOSE_SECTION CLOSE {}
 
-sectionAttr : idAttr TITLE QUOTE string QUOTE {}
+sectionAttr : idAttr TITLE QUOTE str QUOTE {}
 
 sectionsItems : /* empty */ {}
-              | string sectionsItems {}
+              | str sectionsItems {}
               | section sectionsItems {}
               | figure sectionsItems {}
               | table sectionsItems {}
@@ -196,8 +197,8 @@ sectionsItems : /* empty */ {}
 */
 figure : OPEN_FIGURE figureAttr SLASH CLOSE {}
 
-figureAttr : idAttr CAPTION QUOTE string QUOTE {}
-           | idAttr CAPTION QUOTE string QUOTE PATH QUOTE string QUOTE {}
+figureAttr : idAttr CAPTION QUOTE str QUOTE {}
+           | idAttr CAPTION QUOTE str QUOTE PATH QUOTE str QUOTE {}
 
 
 /*
@@ -209,7 +210,7 @@ figureAttr : idAttr CAPTION QUOTE string QUOTE {}
 */
 table : OPEN_TABLE tableAttr CLOSE tableItems CLOSE_TABLE CLOSE {}
 
-tableAttr : idAttr CAPTION QUOTE string QUOTE
+tableAttr : idAttr CAPTION QUOTE str QUOTE
 
 tableItems : row {}
            | row tableItems {}
@@ -223,7 +224,7 @@ row : OPEN_ROW CLOSE cells CLOSE_ROW CLOSE {}
 cells : cell
      | cell cells
 
-cell : OPEN_CELL CLOSE string CLOSE_CELL CLOSE {}
+cell : OPEN_CELL CLOSE str CLOSE_CELL CLOSE {}
 
 
 /*
@@ -239,20 +240,20 @@ notes : note        {}
       | note notes {}
 
 
-note : OPEN_NOTE CLOSE string CLOSE_NOTE CLOSE {}
+note : OPEN_NOTE CLOSE str CLOSE_NOTE CLOSE { handler.addNote($3); }
 
 
 
-string : VALUE        {}
-       | VALUE string {}      
+str : VALUE        { $$ = $1; }
+    | VALUE str    { $$ = $1 + " " + $2; }      
 
-idAttr :  ID QUOTE string QUOTE
+idAttr :  ID QUOTE str QUOTE
 
 
 %%
 
   private Yylex lexer;
-
+  public static ASTHandler handler = new ASTHandler();
 
   private int yylex () {
     int yyl_return = -1;
@@ -274,29 +275,4 @@ idAttr :  ID QUOTE string QUOTE
 
   public Parser(Reader r) {
     lexer = new Yylex(r, this);
-  }
-
-
-  static boolean interactive;
-
-  public static void main(String args[]) throws IOException {
-    System.out.println("BYACC/Java with JFlex Calculator Demo");
-
-    Parser yyparser;
-    if ( args.length > 0 ) {
-      // parse a file
-      yyparser = new Parser(new FileReader(args[0]));
-    }
-    else {
-      // interactive mode
-      interactive = true;
-	    yyparser = new Parser(new InputStreamReader(System.in));
-    }
-
-    yyparser.yyparse();
-    
-    if (interactive) {
-      System.out.println();
-      System.out.println("Tutto ok");
-    }
   }

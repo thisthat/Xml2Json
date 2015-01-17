@@ -205,12 +205,12 @@ public final static short VERSION=302;
 public final static short ENCODING=303;
 public final static short YYERRCODE=256;
 final static short yylhs[] = {                           -1,
-    0,    1,    2,    3,    4,    5,    5,    6,    6,    6,
-    6,    7,    8,    9,    9,   12,   13,   13,   14,   14,
+    0,    2,    3,    4,    5,    6,    6,    7,    7,    7,
+    7,    8,    9,   10,   10,   12,   13,   13,   14,   14,
    14,   14,   16,   18,   19,   17,   17,   20,   20,   22,
    21,   23,   24,   24,   25,   26,   27,   27,   27,   27,
    27,   28,   30,   30,   29,   31,   32,   32,   33,   34,
-   34,   35,   10,   36,   36,   37,   11,   11,   15,
+   34,   35,   11,   36,   36,   37,    1,    1,   15,
 };
 final static short yylen[] = {                            2,
     6,    4,    4,    7,    6,    0,    4,    4,    3,    3,
@@ -241,8 +241,8 @@ final static short yydefred[] = {                         0,
     0,    0,   51,    0,    0,   49,    0,    0,   44,   52,
 };
 final static short yydgoto[] = {                          2,
-    4,    7,   14,   18,   21,   29,   30,   31,   39,   51,
-  132,   40,   48,   65,   49,   66,   75,   89,   90,   82,
+  132,    4,    7,   14,   18,   21,   29,   30,   31,   39,
+   51,   40,   48,   65,   49,   66,   75,   89,   90,   82,
    76,   83,   86,  108,  133,  116,  134,  135,  136,  139,
   141,  157,  158,  167,  168,   69,   70,
 };
@@ -287,8 +287,8 @@ final static short yyrindex[] = {                         0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
 };
 final static short yygindex[] = {                         0,
-    0,    0,    0,    0,    0,    0,    0,   68,  -33,  115,
-  -34,    0,    0,    0,  -72,    0,   92,    0,   81,  -80,
+  -34,    0,    0,    0,    0,    0,    0,    0,   68,  -33,
+  115,    0,    0,    0,  -72,    0,   92,    0,   81,  -80,
     0,    0,    0,   62,  -87,    0,  -90,    0,    0,    0,
     0,   14,    0,    5,    0,  104,    0,
 };
@@ -383,8 +383,8 @@ final static String yyrule[] = {
 "bookItems : dedication preface parts",
 "bookItems : preface parts authornotes",
 "bookItems : preface parts",
-"dedication : OPEN_DEDICATION CLOSE string CLOSE_DEDICATION CLOSE",
-"preface : OPEN_PREFACE CLOSE string CLOSE_PREFACE CLOSE",
+"dedication : OPEN_DEDICATION CLOSE str CLOSE_DEDICATION CLOSE",
+"preface : OPEN_PREFACE CLOSE str CLOSE_PREFACE CLOSE",
 "parts : part",
 "parts : part parts",
 "part : OPEN_PART partAttr CLOSE partItems CLOSE_PART CLOSE",
@@ -401,42 +401,42 @@ final static String yyrule[] = {
 "chapters : chapter chapters",
 "items : item",
 "items : item items",
-"item : OPEN_ITEM idAttr CLOSE string CLOSE_ITEM CLOSE",
+"item : OPEN_ITEM idAttr CLOSE str CLOSE_ITEM CLOSE",
 "chapter : OPEN_CHAPTER chapterAttr CLOSE sections CLOSE_CHAPTER CLOSE",
-"chapterAttr : idAttr TITLE QUOTE string QUOTE",
+"chapterAttr : idAttr TITLE QUOTE str QUOTE",
 "sections : section",
 "sections : section sections",
 "section : OPEN_SECTION sectionAttr CLOSE sectionsItems CLOSE_SECTION CLOSE",
-"sectionAttr : idAttr TITLE QUOTE string QUOTE",
+"sectionAttr : idAttr TITLE QUOTE str QUOTE",
 "sectionsItems :",
-"sectionsItems : string sectionsItems",
+"sectionsItems : str sectionsItems",
 "sectionsItems : section sectionsItems",
 "sectionsItems : figure sectionsItems",
 "sectionsItems : table sectionsItems",
 "figure : OPEN_FIGURE figureAttr SLASH CLOSE",
-"figureAttr : idAttr CAPTION QUOTE string QUOTE",
-"figureAttr : idAttr CAPTION QUOTE string QUOTE PATH QUOTE string QUOTE",
+"figureAttr : idAttr CAPTION QUOTE str QUOTE",
+"figureAttr : idAttr CAPTION QUOTE str QUOTE PATH QUOTE str QUOTE",
 "table : OPEN_TABLE tableAttr CLOSE tableItems CLOSE_TABLE CLOSE",
-"tableAttr : idAttr CAPTION QUOTE string QUOTE",
+"tableAttr : idAttr CAPTION QUOTE str QUOTE",
 "tableItems : row",
 "tableItems : row tableItems",
 "row : OPEN_ROW CLOSE cells CLOSE_ROW CLOSE",
 "cells : cell",
 "cells : cell cells",
-"cell : OPEN_CELL CLOSE string CLOSE_CELL CLOSE",
+"cell : OPEN_CELL CLOSE str CLOSE_CELL CLOSE",
 "authornotes : OPEN_AUTHOR CLOSE notes CLOSE_AUTHOR CLOSE",
 "notes : note",
 "notes : note notes",
-"note : OPEN_NOTE CLOSE string CLOSE_NOTE CLOSE",
-"string : VALUE",
-"string : VALUE string",
-"idAttr : ID QUOTE string QUOTE",
+"note : OPEN_NOTE CLOSE str CLOSE_NOTE CLOSE",
+"str : VALUE",
+"str : VALUE str",
+"idAttr : ID QUOTE str QUOTE",
 };
 
-//#line 253 "calc.y"
+//#line 254 "calc.y"
 
   private Yylex lexer;
-
+  public static ASTHandler handler = new ASTHandler();
 
   private int yylex () {
     int yyl_return = -1;
@@ -459,32 +459,7 @@ final static String yyrule[] = {
   public Parser(Reader r) {
     lexer = new Yylex(r, this);
   }
-
-
-  static boolean interactive;
-
-  public static void main(String args[]) throws IOException {
-    System.out.println("BYACC/Java with JFlex Calculator Demo");
-
-    Parser yyparser;
-    if ( args.length > 0 ) {
-      // parse a file
-      yyparser = new Parser(new FileReader(args[0]));
-    }
-    else {
-      // interactive mode
-      interactive = true;
-	    yyparser = new Parser(new InputStreamReader(System.in));
-    }
-
-    yyparser.yyparse();
-    
-    if (interactive) {
-      System.out.println();
-      System.out.println("Tutto ok");
-    }
-  }
-//#line 416 "Parser.java"
+//#line 391 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -639,186 +614,186 @@ boolean doaction;
       {
 //########## USER-SUPPLIED ACTIONS ##########
 case 1:
-//#line 77 "calc.y"
+//#line 78 "calc.y"
 { System.out.println("Fine DOC"); }
 break;
 case 2:
-//#line 79 "calc.y"
+//#line 80 "calc.y"
 {}
 break;
 case 3:
-//#line 81 "calc.y"
+//#line 82 "calc.y"
 {}
 break;
 case 4:
-//#line 83 "calc.y"
+//#line 84 "calc.y"
 {  }
 break;
 case 5:
-//#line 93 "calc.y"
+//#line 94 "calc.y"
 {}
 break;
 case 8:
-//#line 98 "calc.y"
-{}
-break;
-case 9:
 //#line 99 "calc.y"
 {}
 break;
-case 10:
+case 9:
 //#line 100 "calc.y"
 {}
 break;
-case 11:
+case 10:
 //#line 101 "calc.y"
 {}
 break;
+case 11:
+//#line 102 "calc.y"
+{}
+break;
 case 12:
-//#line 106 "calc.y"
+//#line 107 "calc.y"
 {}
 break;
 case 13:
-//#line 111 "calc.y"
+//#line 112 "calc.y"
 {}
 break;
 case 14:
-//#line 120 "calc.y"
-{}
-break;
-case 15:
 //#line 121 "calc.y"
 {}
 break;
+case 15:
+//#line 122 "calc.y"
+{}
+break;
 case 16:
-//#line 123 "calc.y"
+//#line 124 "calc.y"
 {}
 break;
 case 23:
-//#line 138 "calc.y"
+//#line 139 "calc.y"
 {}
 break;
 case 24:
-//#line 140 "calc.y"
+//#line 141 "calc.y"
 {}
 break;
 case 25:
-//#line 142 "calc.y"
+//#line 143 "calc.y"
 {}
 break;
 case 28:
-//#line 153 "calc.y"
-{  }
-break;
-case 29:
 //#line 154 "calc.y"
 {  }
 break;
+case 29:
+//#line 155 "calc.y"
+{  }
+break;
 case 30:
-//#line 156 "calc.y"
+//#line 157 "calc.y"
 { }
 break;
 case 31:
-//#line 165 "calc.y"
+//#line 166 "calc.y"
 {}
 break;
 case 32:
-//#line 167 "calc.y"
+//#line 168 "calc.y"
 {}
 break;
 case 33:
-//#line 176 "calc.y"
-{}
-break;
-case 34:
 //#line 177 "calc.y"
 {}
 break;
+case 34:
+//#line 178 "calc.y"
+{}
+break;
 case 35:
-//#line 179 "calc.y"
+//#line 180 "calc.y"
 {}
 break;
 case 36:
-//#line 181 "calc.y"
+//#line 182 "calc.y"
 {}
 break;
 case 37:
-//#line 183 "calc.y"
-{}
-break;
-case 38:
 //#line 184 "calc.y"
 {}
 break;
-case 39:
+case 38:
 //#line 185 "calc.y"
 {}
 break;
-case 40:
+case 39:
 //#line 186 "calc.y"
 {}
 break;
-case 41:
+case 40:
 //#line 187 "calc.y"
 {}
 break;
+case 41:
+//#line 188 "calc.y"
+{}
+break;
 case 42:
-//#line 197 "calc.y"
+//#line 198 "calc.y"
 {}
 break;
 case 43:
-//#line 199 "calc.y"
-{}
-break;
-case 44:
 //#line 200 "calc.y"
 {}
 break;
+case 44:
+//#line 201 "calc.y"
+{}
+break;
 case 45:
-//#line 210 "calc.y"
+//#line 211 "calc.y"
 {}
 break;
 case 47:
-//#line 214 "calc.y"
-{}
-break;
-case 48:
 //#line 215 "calc.y"
 {}
 break;
+case 48:
+//#line 216 "calc.y"
+{}
+break;
 case 49:
-//#line 221 "calc.y"
+//#line 222 "calc.y"
 {}
 break;
 case 52:
-//#line 226 "calc.y"
+//#line 227 "calc.y"
 {}
 break;
 case 53:
-//#line 232 "calc.y"
+//#line 233 "calc.y"
 {}
 break;
 case 54:
-//#line 238 "calc.y"
-{}
-break;
-case 55:
 //#line 239 "calc.y"
 {}
 break;
-case 56:
-//#line 242 "calc.y"
+case 55:
+//#line 240 "calc.y"
 {}
+break;
+case 56:
+//#line 243 "calc.y"
+{ handler.addNote(val_peek(2).sval); }
 break;
 case 57:
-//#line 246 "calc.y"
-{}
+//#line 247 "calc.y"
+{ yyval.sval = val_peek(0).sval; }
 break;
 case 58:
-//#line 247 "calc.y"
-{}
+//#line 248 "calc.y"
+{ yyval.sval = val_peek(1).sval + " " + val_peek(0).sval; }
 break;
-//#line 745 "Parser.java"
+//#line 720 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####
