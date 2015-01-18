@@ -4,7 +4,9 @@ public class ASTHandler {
     
     AST.AuthorNotes authorNotes = _AST.new AuthorNotes();
     
-    
+    public void addCell(String v){
+
+    }
     public void addNote(AST.Note n){
         authorNotes.addNote(n);
     }

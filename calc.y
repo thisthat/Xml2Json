@@ -142,9 +142,6 @@ lof : OPEN_LOF CLOSE items CLOSE_LOF CLOSE {}
 
 lot : OPEN_LOT CLOSE items CLOSE_LOT CLOSE {}
 
-chapters : chapter
-         | chapter chapters
-
 /*
 <!ELEMENT item (#PCDATA)>
 <!ATTLIST item
@@ -163,6 +160,9 @@ item : OPEN_ITEM idAttr CLOSE str CLOSE_ITEM CLOSE { }
     title CDATA #REQUIRED
 >
 */
+chapters : chapter
+         | chapter chapters
+
 chapter : OPEN_CHAPTER chapterAttr CLOSE sections CLOSE_CHAPTER CLOSE {}
 
 chapterAttr : idAttr TITLE QUOTE str QUOTE {}
@@ -219,7 +219,7 @@ tableItems : row {}
 <!ELEMENT row (cell+)>
 <!ELEMENT cell (#PCDATA)>
 */
-row : OPEN_ROW CLOSE cells CLOSE_ROW CLOSE {}
+row : OPEN_ROW {System.out.println("Creo");} CLOSE cells CLOSE_ROW CLOSE {System.out.println("Riduco");}
 
 cells : cell
      | cell cells
@@ -237,7 +237,7 @@ authornotes : OPEN_AUTHOR CLOSE notes CLOSE_AUTHOR CLOSE  {}
 */
 
 notes : note        {}
-      | note notes {}
+      | note notes  {}
 
 
 note : OPEN_NOTE CLOSE str CLOSE_NOTE CLOSE { handler.addNote($3); }

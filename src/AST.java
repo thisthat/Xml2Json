@@ -17,8 +17,41 @@ public class AST {
     public abstract class ASTElement {
         public List<ASTAttribute> attributes;
         public List items;
+        public List getItems(){
+            return items;
+        }
     }
-    
+
+    public class Table extends ASTElement {
+        public Table(){
+            items = new ArrayList<Note>();
+        }
+        public void addRow(Cell n){
+            items.add(n);
+        }
+        public void addAttr(ASTAttribute attr){
+            attributes.add(attr);
+        }
+
+    }
+    public class Row extends ASTElement {
+        public Row(){
+            items = new ArrayList<Note>();
+        }
+        public void addCell(Cell n){
+            items.add(n);
+        }
+    }
+    public class Cell extends ASTElement {
+        private String value;
+        public Cell(String v){
+            this.value = v;
+        }
+        public String toString(){
+            return "Cell value:" + this.value+ "\n";
+        }
+    }
+
     public class Note extends ASTElement {
         private String value;
         public Note(String v){
@@ -36,9 +69,7 @@ public class AST {
         public void addNote(Note n){
             items.add(n);
         }
-        public List getItems(){
-            return items;
-        }
+        
     }
 }
 

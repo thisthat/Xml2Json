@@ -29,6 +29,7 @@ REM clean some old stuff
 
 del output\*.java
 del output\*.class
+del yacc.oa*
 
 copy src\*.java output
 
