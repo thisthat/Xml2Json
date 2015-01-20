@@ -13,6 +13,7 @@
 
 %{
   import java.io.*;
+  import java.util.*;
 %}
 
 /* HEADER XML */
@@ -72,10 +73,18 @@
 %token ENCODING
 
 %type <sval> str
+%type <obj>  cell
+%type <obj>  cells
+%type <obj>  row
+%type <obj>  tableItems
+
+
+
+
 
 %%
 
-xml:  OPEN_HEADER version encoding CLOSE_HEADER doctipe book { System.out.println("Fine DOC"); }
+xml:  OPEN_HEADER version encoding CLOSE_HEADER doctipe book { }
 
 version : VERSION QUOTE VALUE QUOTE {}
 
@@ -212,19 +221,32 @@ table : OPEN_TABLE tableAttr CLOSE tableItems CLOSE_TABLE CLOSE {}
 
 tableAttr : idAttr CAPTION QUOTE str QUOTE
 
-tableItems : row {}
-           | row tableItems {}
+tableItems : row {  List newList = new ArrayList();
+                    newList.add($1); 
+                    $$ = newList;  
+                  }
+           | tableItems row {
+                              List l = (List)$1;
+                              l.add($2);
+                            }
 
 /*
 <!ELEMENT row (cell+)>
 <!ELEMENT cell (#PCDATA)>
 */
-row : OPEN_ROW {System.out.println("Creo");} CLOSE cells CLOSE_ROW CLOSE {System.out.println("Riduco");}
+row : OPEN_ROW CLOSE cells CLOSE_ROW CLOSE { $$ = _AST.new Row((List)$3);}
 
-cells : cell
-     | cell cells
+cells : cell       { 
+                     List newList = new ArrayList();
+                     newList.add($1); 
+                     $$ = newList; 
+                   }
+      | cells cell { 
+                      List l = (List)$1;
+                      l.add($2);
+                   }
 
-cell : OPEN_CELL CLOSE str CLOSE_CELL CLOSE {}
+cell : OPEN_CELL CLOSE str CLOSE_CELL CLOSE { $$ = _AST.new Cell($3); }
 
 
 /*
@@ -240,7 +262,7 @@ notes : note        {}
       | note notes  {}
 
 
-note : OPEN_NOTE CLOSE str CLOSE_NOTE CLOSE { handler.addNote($3); }
+note : OPEN_NOTE CLOSE str CLOSE_NOTE CLOSE {  }
 
 
 
@@ -254,6 +276,7 @@ idAttr :  ID QUOTE str QUOTE
 
   private Yylex lexer;
   public static ASTHandler handler = new ASTHandler();
+  public static AST _AST = new AST();
 
   private int yylex () {
     int yyl_return = -1;

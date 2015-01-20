@@ -36,10 +36,21 @@ public class AST {
     }
     public class Row extends ASTElement {
         public Row(){
-            items = new ArrayList<Note>();
+            items = new ArrayList<Cell>();
+        }
+        public Row(List<Cell> list){
+            items = new ArrayList<Cell>();
+            items.addAll(list);
         }
         public void addCell(Cell n){
             items.add(n);
+        }
+        public String toString(){
+            String out = "[";
+            for(Object c:items){
+                out += c.toString() + ", ";
+            }
+            return out + "]";
         }
     }
     public class Cell extends ASTElement {
@@ -48,7 +59,7 @@ public class AST {
             this.value = v;
         }
         public String toString(){
-            return "Cell value:" + this.value+ "\n";
+            return "Cell value:" + this.value+ "";
         }
     }
 
