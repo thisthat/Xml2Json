@@ -12,6 +12,13 @@ public class AST {
     public class ASTAttribute {
         private String name;
         private String value; 
+        public ASTAttribute(String n, String v){
+            name = n;
+            value = v;
+        }
+        public String toString(){
+            return name + "=" + value;
+        }
     }
 
     public abstract class ASTElement {
@@ -26,11 +33,20 @@ public class AST {
         public Table(){
             items = new ArrayList<Note>();
         }
-        public void addRow(Cell n){
-            items.add(n);
+        public Table(List a, List i) {
+            items = i;
+            attributes = a;
         }
-        public void addAttr(ASTAttribute attr){
-            attributes.add(attr);
+        public String toString() {
+            String out = "Table @";
+            for(Object c:attributes){
+                out += c.toString() + ", ";
+            }
+            out += ": \n";
+            for(Object c:items){
+                out += c.toString() + "\n ";
+            }
+            return out + "]";
         }
 
     }

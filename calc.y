@@ -77,9 +77,9 @@
 %type <obj>  cells
 %type <obj>  row
 %type <obj>  tableItems
-
-
-
+%type <obj>  table
+%type <obj>  tableAttr
+%type <obj>  idAttr
 
 
 %%
@@ -194,7 +194,7 @@ sectionsItems : /* empty */ {}
               | str sectionsItems {}
               | section sectionsItems {}
               | figure sectionsItems {}
-              | table sectionsItems {}
+              | table sectionsItems { System.out.println($1); }
 
 /* 
 <!ELEMENT figure EMPTY>
@@ -217,9 +217,15 @@ figureAttr : idAttr CAPTION QUOTE str QUOTE {}
   caption CDATA #REQUIRED
 >
 */
-table : OPEN_TABLE tableAttr CLOSE tableItems CLOSE_TABLE CLOSE {}
+table : OPEN_TABLE tableAttr CLOSE tableItems CLOSE_TABLE CLOSE { $$ = _AST.new Table((List) $2, (List) $4);}
 
-tableAttr : idAttr CAPTION QUOTE str QUOTE
+tableAttr : idAttr CAPTION QUOTE str QUOTE  { 
+                                              List newList = new ArrayList<AST.ASTAttribute>();
+                                              AST.ASTAttribute attr = _AST.new ASTAttribute("caption", $4);
+                                              newList.add($1);
+                                              newList.add(attr);
+                                              $$ = newList;    
+                                            }
 
 tableItems : row {  List newList = new ArrayList();
                     newList.add($1); 
@@ -269,7 +275,7 @@ note : OPEN_NOTE CLOSE str CLOSE_NOTE CLOSE {  }
 str : VALUE        { $$ = $1; }
     | VALUE str    { $$ = $1 + " " + $2; }      
 
-idAttr :  ID QUOTE str QUOTE
+idAttr :  ID QUOTE str QUOTE { $$ = _AST.new ASTAttribute("id", $3); }
 
 
 %%
