@@ -29,9 +29,18 @@ public class AST {
         }
     }
 
+
+    public class Figure extends ASTElement {
+        public Figure(){
+        }
+        public Figure(List a) {
+            attributes = a;
+        }
+    }
+
     public class Table extends ASTElement {
         public Table(){
-            items = new ArrayList<Note>();
+            items = new ArrayList<Row>();
         }
         public Table(List a, List i) {
             items = i;
@@ -42,11 +51,11 @@ public class AST {
             for(Object c:attributes){
                 out += c.toString() + ", ";
             }
-            out += ": \n";
+            out += ": \n{";
             for(Object c:items){
-                out += c.toString() + "\n ";
+                out += "\t" + c.toString() + "\n ";
             }
-            return out + "]";
+            return out + "\n\t}";
         }
 
     }
@@ -55,14 +64,10 @@ public class AST {
             items = new ArrayList<Cell>();
         }
         public Row(List<Cell> list){
-            items = new ArrayList<Cell>();
-            items.addAll(list);
-        }
-        public void addCell(Cell n){
-            items.add(n);
+            items = list;
         }
         public String toString(){
-            String out = "[";
+            String out = "Row : [";
             for(Object c:items){
                 out += c.toString() + ", ";
             }
@@ -92,11 +97,9 @@ public class AST {
         public AuthorNotes(){
             items = new ArrayList<Note>();
         }
-
-        public void addNote(Note n){
-            items.add(n);
+        public AuthorNotes(List<Note> notes){
+            items = notes;
         }
-        
     }
 }
 

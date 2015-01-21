@@ -80,6 +80,12 @@
 %type <obj>  table
 %type <obj>  tableAttr
 %type <obj>  idAttr
+%type <obj>  note
+%type <obj>  notes
+%type <obj>  authornotes
+%type <obj>  figureAttr
+%type <obj>  figure
+%type <obj>  sectionsItems
 
 
 %%
@@ -105,9 +111,9 @@ book : OPEN_BOOK bookAttr CLOSE bookItems CLOSE_BOOK CLOSE {}
 bookAttr : /* empty */
          | EDITION QUOTE VALUE QUOTE
 
-bookItems : dedication preface parts authornotes  {}
+bookItems : dedication preface parts authornotes  { System.out.println($4);}
           | dedication preface parts {}
-          | preface parts authornotes {}
+          | preface parts authornotes { System.out.println($3); }
           | preface parts {}
 
 /*
@@ -190,11 +196,16 @@ section : OPEN_SECTION sectionAttr CLOSE sectionsItems CLOSE_SECTION CLOSE {}
 
 sectionAttr : idAttr TITLE QUOTE str QUOTE {}
 
-sectionsItems : /* empty */ {}
-              | str sectionsItems {}
-              | section sectionsItems {}
-              | figure sectionsItems {}
-              | table sectionsItems { System.out.println($1); }
+sectionsItems : /* empty */ { $$ = null; }
+              | sectionsItems str { 
+              						System.out.println($1);
+              						//List l = (List)$1;
+									//l.add($2);
+									//$$ = l;
+              					  }
+              | sectionsItems figure  {}
+              | sectionsItems table   { }
+              | sectionsItems section {}
 
 /* 
 <!ELEMENT figure EMPTY>
@@ -204,10 +215,26 @@ sectionsItems : /* empty */ {}
   path CDATA "placeholder.jpg" -> by rules reduction
 >
 */
-figure : OPEN_FIGURE figureAttr SLASH CLOSE {}
+figure : OPEN_FIGURE figureAttr SLASH CLOSE {
+												$$ = _AST.new Figure((List)$2);
+											}
 
-figureAttr : idAttr CAPTION QUOTE str QUOTE {}
-           | idAttr CAPTION QUOTE str QUOTE PATH QUOTE str QUOTE {}
+figureAttr : idAttr CAPTION QUOTE str QUOTE { 
+												List newList = new ArrayList<AST.ASTAttribute>();
+                                              	AST.ASTAttribute attr = _AST.new ASTAttribute("caption", $4);
+                                              	newList.add($1);
+                                              	newList.add(attr);
+												$$ = newList;
+											}
+           | idAttr CAPTION QUOTE str QUOTE PATH QUOTE str QUOTE {
+           															List newList = new ArrayList<AST.ASTAttribute>();
+					                                              	AST.ASTAttribute caption = _AST.new ASTAttribute("caption", $4);
+					                                              	AST.ASTAttribute path = _AST.new ASTAttribute("path", $8);
+					                                              	newList.add($1);
+					                                              	newList.add(caption);
+					                                              	newList.add(path);
+																	$$ = newList;
+																}
 
 
 /*
@@ -234,6 +261,7 @@ tableItems : row {  List newList = new ArrayList();
            | tableItems row {
                               List l = (List)$1;
                               l.add($2);
+                              $$ = l;
                             }
 
 /*
@@ -250,6 +278,7 @@ cells : cell       {
       | cells cell { 
                       List l = (List)$1;
                       l.add($2);
+                      $$ = l;
                    }
 
 cell : OPEN_CELL CLOSE str CLOSE_CELL CLOSE { $$ = _AST.new Cell($3); }
@@ -258,17 +287,25 @@ cell : OPEN_CELL CLOSE str CLOSE_CELL CLOSE { $$ = _AST.new Cell($3); }
 /*
 <!ELEMENT authornotes (note+)>
 */
-authornotes : OPEN_AUTHOR CLOSE notes CLOSE_AUTHOR CLOSE  {}
+authornotes : OPEN_AUTHOR CLOSE notes CLOSE_AUTHOR CLOSE  { $$ = _AST.new AuthorNotes((List)$3); }
 
 /*
 <!ELEMENT note (#PCDATA)>
 */
 
-notes : note        {}
-      | note notes  {}
+notes : note        {
+						List newList = new ArrayList();
+                     	newList.add($1); 
+                     	$$ = newList; 
+                    }
+      | notes note  { 
+      					List l = (List)$1;
+                      	l.add($2);
+                      	$$ = l;
+                    }
 
 
-note : OPEN_NOTE CLOSE str CLOSE_NOTE CLOSE {  }
+note : OPEN_NOTE CLOSE str CLOSE_NOTE CLOSE { $$ =  _AST.new Note($3); }
 
 
 
@@ -281,7 +318,7 @@ idAttr :  ID QUOTE str QUOTE { $$ = _AST.new ASTAttribute("id", $3); }
 %%
 
   private Yylex lexer;
-  public static ASTHandler handler = new ASTHandler();
+  //public static ASTHandler handler = new ASTHandler();
   public static AST _AST = new AST();
 
   private int yylex () {

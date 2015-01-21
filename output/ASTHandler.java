@@ -1,6 +1,6 @@
 import java.util.List;
 public class ASTHandler {
-    public AST _AST = new AST();
+    /*public AST _AST = new AST();
     
     AST.AuthorNotes authorNotes = _AST.new AuthorNotes();
     
@@ -20,5 +20,5 @@ public class ASTHandler {
     
     public List getAuthorNotes(){
         return authorNotes.getItems();
-    }
+    }*/
 }

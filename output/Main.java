@@ -18,7 +18,7 @@ public class Main {
         yyparser.yyparse();
     
         //Finish to parse the file
-        List<AST.Note> notes = yyparser.handler.getAuthorNotes();
+
         
     }
 }
