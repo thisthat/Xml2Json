@@ -29,7 +29,35 @@ public class AST {
         }
     }
 
+    public class Item extends ASTElement {
+        private String value;
+        public Item(){
+            items = new ArrayList<ASTElement>();
+        }
+        public Item(List a, String v) {
+            value = v;
+            attributes = a;
+        }
+    }
 
+    public class Chapter extends ASTElement {
+        public Chapter(){
+            items = new ArrayList<ASTElement>();
+        }
+        public Chapter(List a, List i) {
+            items = i;
+            attributes = a;
+        }
+    }
+    public class Section extends ASTElement {
+        public Section(){
+            items = new ArrayList<ASTElement>();
+        }
+        public Section(List a, List i) {
+            items = i;
+            attributes = a;
+        }
+    }
     public class Figure extends ASTElement {
         public Figure(){
         }

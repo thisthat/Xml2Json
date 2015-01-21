@@ -49,8 +49,10 @@ REM move %~dp0*.class %~dp0output\
 
 REM And finally run
 
-@echo on
+echo --------------
 echo Build 0.1.%NewBuild%
+
+@echo on
 java -cp output Main < test.txt
 
 

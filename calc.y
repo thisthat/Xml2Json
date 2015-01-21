@@ -85,8 +85,15 @@
 %type <obj>  authornotes
 %type <obj>  figureAttr
 %type <obj>  figure
+%type <obj>  items
+%type <obj>  item
+%type <obj>  chapters
+%type <obj>  chapter
+%type <obj>  chapterAttr
+%type <obj>  sections
+%type <obj>  section
 %type <obj>  sectionsItems
-
+%type <obj>  sectionAttr
 
 %%
 
@@ -163,10 +170,22 @@ lot : OPEN_LOT CLOSE items CLOSE_LOT CLOSE {}
   id IDREF #REQUIRED
 >
 */
-items : item        {  }
-      | item items  {  } 
+items : item 	{ 
+					List newList = new ArrayList();
+                  	newList.add($1); 
+                  	$$ = newList; 
+	            }
+      | items item  {
+						List l = (List)$1;
+	          			l.add($2);
+	          			$$ = l;  
+	          		} 
 
-item : OPEN_ITEM idAttr CLOSE str CLOSE_ITEM CLOSE { }
+item : OPEN_ITEM idAttr CLOSE str CLOSE_ITEM CLOSE { 
+														List newList = new ArrayList<AST.ASTAttribute>();
+														newList.add($2);
+														$$ = _AST.new Item( newList ,  $4 ); 
+													}
 
 /*
 <!ELEMENT chapter (section+)>
@@ -175,12 +194,26 @@ item : OPEN_ITEM idAttr CLOSE str CLOSE_ITEM CLOSE { }
     title CDATA #REQUIRED
 >
 */
-chapters : chapter
-         | chapter chapters
+chapters : chapter 	{
+						List newList = new ArrayList();
+	                    newList.add($1); 
+	                    $$ = newList;
+					}
+         | chapters chapter {
+         						List l = (List)$1;
+                      			l.add($2);
+                      			$$ = l;
+					        }
 
-chapter : OPEN_CHAPTER chapterAttr CLOSE sections CLOSE_CHAPTER CLOSE {}
+chapter : OPEN_CHAPTER chapterAttr CLOSE sections CLOSE_CHAPTER CLOSE { $$ = _AST.new Chapter( (List) $2 , (List) $4 ); }
 
-chapterAttr : idAttr TITLE QUOTE str QUOTE {}
+chapterAttr : idAttr TITLE QUOTE str QUOTE {
+												List newList = new ArrayList<AST.ASTAttribute>();
+                                              	AST.ASTAttribute attr = _AST.new ASTAttribute("title", $4);
+                                              	newList.add($1);
+                                              	newList.add(attr);
+												$$ = newList;
+											}
 
 /*
 <!ELEMENT section (#PCDATA|section|figure|table)*>
@@ -189,23 +222,51 @@ chapterAttr : idAttr TITLE QUOTE str QUOTE {}
   title CDATA #REQUIRED
 >
 */
-sections : section {}
-         | section sections {}
+sections : section { 
+					List newList = new ArrayList();
+                    newList.add($1); 
+                    $$ = newList;
+                   }
+         | sections section { 
+         					 	List l = (List)$1;
+                      			l.add($2);
+                      			$$ = l;
+                  			}
 
-section : OPEN_SECTION sectionAttr CLOSE sectionsItems CLOSE_SECTION CLOSE {}
+section : OPEN_SECTION sectionAttr CLOSE sectionsItems CLOSE_SECTION CLOSE 
+					{
+						 $$ = _AST.new Section( (List) $2 , (List) $4 );
+					}
 
-sectionAttr : idAttr TITLE QUOTE str QUOTE {}
+sectionAttr : idAttr TITLE QUOTE str QUOTE {
+												List newList = new ArrayList<AST.ASTAttribute>();
+                                              	AST.ASTAttribute attr = _AST.new ASTAttribute("title", $4);
+                                              	newList.add($1);
+                                              	newList.add(attr);
+												$$ = newList;
+											}
 
-sectionsItems : /* empty */ { $$ = null; }
+sectionsItems : /* empty */ 	  { $$ = new ArrayList();; }
               | sectionsItems str { 
-              						System.out.println($1);
-              						//List l = (List)$1;
-									//l.add($2);
-									//$$ = l;
+              						List l = (List)$1;
+									l.add($2);
+									$$ = l;
               					  }
-              | sectionsItems figure  {}
-              | sectionsItems table   { }
-              | sectionsItems section {}
+              | sectionsItems figure  { 
+              							List l = (List)$1;
+										l.add($2);
+										$$ = l; 
+									}
+              | sectionsItems table   { 
+              							List l = (List)$1;
+										l.add($2);
+										$$ = l; 
+									 }
+              | sectionsItems section { 
+              							List l = (List)$1;
+										l.add($2);
+										$$ = l; 
+									}
 
 /* 
 <!ELEMENT figure EMPTY>
