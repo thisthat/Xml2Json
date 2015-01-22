@@ -4,7 +4,7 @@ public class Main {
     
     public static void main(String args[]) throws IOException {
 
-        System.out.println("Parsing the file..");
+        System.out.println("BYACC/Java with JFlex Calculator Demo");
 
         Parser yyparser;
         if ( args.length > 0 ) {
@@ -18,8 +18,7 @@ public class Main {
         yyparser.yyparse();
     
         //Finish to parse the file
-        System.out.println("Parsing done.");
-        System.out.println("Creating converted.json file");
-        //String json = yyparser.root.toString();
+
+        
     }
 }

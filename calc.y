@@ -85,6 +85,10 @@
 %type <obj>  authornotes
 %type <obj>  figureAttr
 %type <obj>  figure
+%type <obj>  partItems
+%type <obj>  toc
+%type <obj>  lof
+%type <obj>  lot
 %type <obj>  items
 %type <obj>  item
 %type <obj>  chapters
@@ -148,21 +152,21 @@ part : OPEN_PART partAttr CLOSE partItems CLOSE_PART CLOSE {}
 partAttr : idAttr
          | idAttr TITLE QUOTE VALUE QUOTE 
 
-partItems : toc chapters 
-          | toc chapters lof
-          | toc chapters lot
-          | toc chapters lof lot
+partItems : toc chapters 			{ $$ = _AST.new PartItems( (AST.TOC) $1, (List) $2); }
+          | toc chapters lof 		{ $$ = _AST.new PartItems( (AST.TOC) $1, (List) $2, (AST.LOF) $3); }
+          | toc chapters lot 		{ $$ = _AST.new PartItems( (AST.TOC) $1, (List) $2, (AST.LOT) $3); }
+          | toc chapters lof lot 	{ $$ = _AST.new PartItems( (AST.TOC) $1, (List) $2, (AST.LOF) $3, (AST.LOT) $4); }
 
 /*
 <!ELEMENT toc (item+)>
 <!ELEMENT lof (item+)>
 <!ELEMENT lot (item+)>
 */
-toc : OPEN_TOC CLOSE items CLOSE_TOC CLOSE {}
+toc : OPEN_TOC CLOSE items CLOSE_TOC CLOSE { $$ = _AST.new TOC( (List) $3);  }
 
-lof : OPEN_LOF CLOSE items CLOSE_LOF CLOSE {}
+lof : OPEN_LOF CLOSE items CLOSE_LOF CLOSE { $$ = _AST.new LOF( (List) $3);  }
 
-lot : OPEN_LOT CLOSE items CLOSE_LOT CLOSE {}
+lot : OPEN_LOT CLOSE items CLOSE_LOT CLOSE { $$ = _AST.new LOT( (List) $3);  }
 
 /*
 <!ELEMENT item (#PCDATA)>
@@ -379,8 +383,8 @@ idAttr :  ID QUOTE str QUOTE { $$ = _AST.new ASTAttribute("id", $3); }
 %%
 
   private Yylex lexer;
-  //public static ASTHandler handler = new ASTHandler();
   public static AST _AST = new AST();
+  
 
   private int yylex () {
     int yyl_return = -1;
