@@ -51,8 +51,9 @@ REM And finally run
 
 echo --------------
 echo Build 0.1.%NewBuild%
+echo --------------
 
-@echo on
-java -cp output Main test.txt
+
+CALL run.bat
 
 
