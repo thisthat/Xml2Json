@@ -53,6 +53,6 @@ echo --------------
 echo Build 0.1.%NewBuild%
 
 @echo on
-java -cp output Main < test.txt
+java -cp output Main test.txt
 
 

@@ -29,39 +29,45 @@ public class AST {
         }
     }
 
-    public class PartItems extends ASTElement {
-        public TOC toc;
-        public LOF lof;
-        public LOT lot;
-        public PartItems(){
+
+    public class Root extends ASTElement {
+        public Root(){
             items = new ArrayList<ASTElement>();
-            toc = null;
-            lot = null;
-            lof = null;
         }
-        public PartItems(TOC t, List c){
-            items = c;
-            toc = t;
-            lot = null;
-            lof = null;
+        public Root(List a, List i) {
+            items = i;
+            attributes = a;
         }
-        public PartItems(TOC t, List c, LOF l){
-            items = c;
-            toc = t;
-            lot = null;
-            lof = l;
+    }
+
+    public class Dedication extends ASTElement {
+        private String value;
+        public Dedication(){
+            items = new ArrayList<ASTElement>();
         }
-        public PartItems(TOC t, List c, LOT l){
-            items = c;
-            toc = t;
-            lot = l;
-            lof = null;
+        public Dedication(String v) {
+            value = v;
         }
-        public PartItems(TOC t, List c, LOF lf, LOT lt){
-            items = c;
-            toc = t;
-            lot = lt;
-            lof = lf;
+    }
+
+    public class Preface extends ASTElement {
+        private String value;
+        public Preface(){
+            items = new ArrayList<ASTElement>();
+        }
+        public Preface(String v) {
+            value = v;
+        }
+    }
+
+
+    public class Part extends ASTElement {
+        public Part(){
+            items = new ArrayList<ASTElement>();
+        }
+        public Part(List a, List i) {
+            items = i;
+            attributes = a;
         }
     }
 

@@ -73,6 +73,12 @@
 %token ENCODING
 
 %type <sval> str
+%type <obj>  xml
+%type <obj>  book
+%type <obj>  bookItems
+%type <obj>  bookAttr
+%type <obj>  dedication
+%type <obj>  preface
 %type <obj>  cell
 %type <obj>  cells
 %type <obj>  row
@@ -85,6 +91,9 @@
 %type <obj>  authornotes
 %type <obj>  figureAttr
 %type <obj>  figure
+%type <obj>  parts
+%type <obj>  part
+%type <obj>  partAttr
 %type <obj>  partItems
 %type <obj>  toc
 %type <obj>  lof
@@ -101,13 +110,17 @@
 
 %%
 
-xml:  OPEN_HEADER version encoding CLOSE_HEADER doctipe book { }
+xml:  OPEN_HEADER version encoding CLOSE_HEADER doctipe book { root = (AST.Root) $6; }
 
+/* 
+	These three lines are not really necessary in order to convert the 
+	xml file to the json format. Thus, their actions are empty.
+*/
 version : VERSION QUOTE VALUE QUOTE {}
 
 encoding : ENCODING QUOTE VALUE QUOTE {}
 
-doctipe : OPEN_DOCTIPE BOOK VALUE QUOTE VALUE QUOTE CLOSE {  }
+doctipe : OPEN_DOCTIPE BOOK VALUE QUOTE VALUE QUOTE CLOSE { }
 
 
 /*
@@ -117,25 +130,54 @@ doctipe : OPEN_DOCTIPE BOOK VALUE QUOTE VALUE QUOTE CLOSE {  }
 >
 */
 
-book : OPEN_BOOK bookAttr CLOSE bookItems CLOSE_BOOK CLOSE {}
+book : OPEN_BOOK bookAttr CLOSE bookItems CLOSE_BOOK CLOSE { $$ = _AST.new Root( (List) $2, (List) $4 );}
 
-bookAttr : /* empty */
-         | EDITION QUOTE VALUE QUOTE
+bookAttr : /* empty */					{ $$ = new ArrayList(); }
+         | EDITION QUOTE VALUE QUOTE	{ 
+         									List newList = new ArrayList<AST.ASTAttribute>();
+         									AST.ASTAttribute attr = _AST.new ASTAttribute("edition", $3);
+                                            newList.add(attr);
+                                            $$ = null; 
+                                        }
 
-bookItems : dedication preface parts authornotes  { System.out.println($4);}
-          | dedication preface parts {}
-          | preface parts authornotes { System.out.println($3); }
-          | preface parts {}
+bookItems : dedication preface parts authornotes  { 
+													List newList = new ArrayList();
+													newList.add($1);
+													newList.add($2);
+													newList.add($3);
+													newList.add($4);
+													$$ = newList;
+												}
+          | dedication preface parts { 
+          								List newList = new ArrayList();
+										newList.add($1);
+										newList.add($2);
+										newList.add($3);
+										$$ = newList; 
+									}
+          | preface parts authornotes { 
+          								List newList = new ArrayList();
+										newList.add($1);
+										newList.add($2);
+										newList.add($3);
+										$$ = newList;  
+									}
+          | preface parts { 
+          					List newList = new ArrayList();
+							newList.add($1);
+							newList.add($2);
+							$$ = newList;
+						}
 
 /*
 <!ELEMENT dedication (#PCDATA)>
 */
-dedication : OPEN_DEDICATION CLOSE str CLOSE_DEDICATION CLOSE  {}
+dedication : OPEN_DEDICATION CLOSE str CLOSE_DEDICATION CLOSE  { $$ = _AST.new Dedication($3); }
 
 /* 
 <!ELEMENT preface (#PCDATA)>
 */
-preface : OPEN_PREFACE CLOSE str CLOSE_PREFACE CLOSE {}
+preface : OPEN_PREFACE CLOSE str CLOSE_PREFACE CLOSE { $$ = _AST.new Preface($3); }
 
 /* 
 <!ELEMENT part (toc, chapter+, lof?, lot?)>
@@ -144,18 +186,65 @@ preface : OPEN_PREFACE CLOSE str CLOSE_PREFACE CLOSE {}
     title CDATA ""
 >
 */
-parts : part        {}
-      | part parts  {}
+parts : part        {
+						List newList = new ArrayList();
+                  		newList.add($1); 
+                  		$$ = newList; 
+					}
+      | parts part  { 	
+      					List l = (List)$1;
+	          			l.add($2);
+	          			$$ = l;
+	          		}
 
-part : OPEN_PART partAttr CLOSE partItems CLOSE_PART CLOSE {}
 
-partAttr : idAttr
-         | idAttr TITLE QUOTE VALUE QUOTE 
+part : OPEN_PART partAttr CLOSE partItems CLOSE_PART CLOSE { $$ = _AST.new Part( (List) $2 , (List) $4); }
 
-partItems : toc chapters 			{ $$ = _AST.new PartItems( (AST.TOC) $1, (List) $2); }
-          | toc chapters lof 		{ $$ = _AST.new PartItems( (AST.TOC) $1, (List) $2, (AST.LOF) $3); }
-          | toc chapters lot 		{ $$ = _AST.new PartItems( (AST.TOC) $1, (List) $2, (AST.LOT) $3); }
-          | toc chapters lof lot 	{ $$ = _AST.new PartItems( (AST.TOC) $1, (List) $2, (AST.LOF) $3, (AST.LOT) $4); }
+partAttr : idAttr 							{ 
+												List newList = new ArrayList<AST.ASTAttribute>();
+                                              	newList.add($1);
+												$$ = newList;
+											}
+         | idAttr TITLE QUOTE VALUE QUOTE 	{ 	
+         										List newList = new ArrayList<AST.ASTAttribute>();
+                                              	AST.ASTAttribute attr = _AST.new ASTAttribute("title", $4);
+                                              	newList.add($1);
+                                              	newList.add(attr);
+												$$ = newList; 
+											}
+
+partItems : toc chapters 			{ 
+										List newList = new ArrayList();
+										newList.add($1);
+										newList.add($2);
+										$$ = newList;
+										//_AST.new PartItems( (AST.TOC) $1, (List) $2); 
+									}
+          | toc chapters lof 		{ 
+          								//$$ = _AST.new PartItems( (AST.TOC) $1, (List) $2, (AST.LOF) $3); 
+          								List newList = new ArrayList();
+										newList.add($1);
+										newList.add($2);
+										newList.add($3);
+										$$ = newList;
+          							}
+          | toc chapters lot 		{ 
+          								//$$ = _AST.new PartItems( (AST.TOC) $1, (List) $2, (AST.LOT) $3); 
+          								List newList = new ArrayList();
+										newList.add($1);
+										newList.add($2);
+										newList.add($3);
+										$$ = newList;
+          							}
+          | toc chapters lof lot 	{ 
+          								//$$ = _AST.new PartItems( (AST.TOC) $1, (List) $2, (AST.LOF) $3, (AST.LOT) $4); 
+          								List newList = new ArrayList();
+										newList.add($1);
+										newList.add($2);
+										newList.add($3);
+										newList.add($4);
+										$$ = newList;
+          							}
 
 /*
 <!ELEMENT toc (item+)>
@@ -250,7 +339,7 @@ sectionAttr : idAttr TITLE QUOTE str QUOTE {
 												$$ = newList;
 											}
 
-sectionsItems : /* empty */ 	  { $$ = new ArrayList();; }
+sectionsItems : /* empty */ 	  { $$ = new ArrayList(); }
               | sectionsItems str { 
               						List l = (List)$1;
 									l.add($2);
@@ -384,7 +473,7 @@ idAttr :  ID QUOTE str QUOTE { $$ = _AST.new ASTAttribute("id", $3); }
 
   private Yylex lexer;
   public static AST _AST = new AST();
-  
+  public AST.Root root;
 
   private int yylex () {
     int yyl_return = -1;
@@ -398,7 +487,7 @@ idAttr :  ID QUOTE str QUOTE { $$ = _AST.new ASTAttribute("id", $3); }
     return yyl_return;
   }
 
-
+  /* Custom error report function */
   public void yyerror (String error) {
     System.err.println ("Error: " + error + " :: Token value: " + lexer.yytext() + " @" + lexer._line_cnt );
   }

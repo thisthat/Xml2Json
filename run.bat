@@ -1,1 +1,1 @@
-java -cp output Main < test.txt
+java -cp output Main test.txt
