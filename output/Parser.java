@@ -645,7 +645,7 @@ case 7:
          									List newList = new ArrayList<AST.ASTAttribute>();
          									AST.ASTAttribute attr = _AST.new ASTAttribute("edition", val_peek(1).sval);
                                             newList.add(attr);
-                                            yyval.obj = null; 
+                                            yyval.obj = newList; 
                                         }
 break;
 case 8:

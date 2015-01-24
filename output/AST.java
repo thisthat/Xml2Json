@@ -8,7 +8,23 @@ import java.util.List;
     with the token's value
 */
 
+
+/*
+"tag": "section",   => <section id="s1">ciao</section>
+"@id": "s1",
+"content": "ciao"
+
+*/
 public class AST {
+
+    private String identa(int identazione){
+        String out = "";
+        for(int i = 0; i < identazione; i++){
+            out += "\t";
+        }
+        return out;
+    }
+
     public class ASTAttribute {
         private String name;
         private String value; 
@@ -17,7 +33,7 @@ public class AST {
             value = v;
         }
         public String toString(){
-            return name + "=" + value;
+            return "\"@name\"" + "=\"" + value + "\",\n";
         }
     }
 
@@ -29,7 +45,6 @@ public class AST {
         }
     }
 
-
     public class Root extends ASTElement {
         public Root(){
             items = new ArrayList<ASTElement>();
@@ -37,6 +52,22 @@ public class AST {
         public Root(List a, List i) {
             items = i;
             attributes = a;
+        }
+        public String toString(){
+            return toString(1);
+        }
+
+        public String toString(int tab){
+            String out = "\"tag\": \"root\",\n";
+            for(Object c:attributes){
+                out += c.toString();
+            }
+            out += "\"content\": [\n";
+            for(Object c:items){
+                out += identa(tab) + c.toString() + ",\n";
+            }
+             out += "]";
+            return out;
         }
     }
 

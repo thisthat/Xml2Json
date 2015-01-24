@@ -137,7 +137,7 @@ bookAttr : /* empty */					{ $$ = new ArrayList(); }
          									List newList = new ArrayList<AST.ASTAttribute>();
          									AST.ASTAttribute attr = _AST.new ASTAttribute("edition", $3);
                                             newList.add(attr);
-                                            $$ = null; 
+                                            $$ = newList; 
                                         }
 
 bookItems : dedication preface parts authornotes  { 
