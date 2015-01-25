@@ -133,7 +133,7 @@ doctipe : OPEN_DOCTIPE BOOK VALUE QUOTE VALUE QUOTE CLOSE { }
 book : OPEN_BOOK bookAttr CLOSE bookItems CLOSE_BOOK CLOSE { $$ = _AST.new Root( (List) $2, (List) $4 );}
 
 bookAttr : /* empty */					{ $$ = new ArrayList(); }
-         | EDITION QUOTE VALUE QUOTE	{ 
+         | EDITION QUOTE str QUOTE	{ 
          									List newList = new ArrayList<AST.ASTAttribute>();
          									AST.ASTAttribute attr = _AST.new ASTAttribute("edition", $3);
                                             newList.add(attr);
@@ -205,7 +205,7 @@ partAttr : idAttr 							{
                                               	newList.add($1);
 												$$ = newList;
 											}
-         | idAttr TITLE QUOTE VALUE QUOTE 	{ 	
+         | idAttr TITLE QUOTE str QUOTE 	{ 	
          										List newList = new ArrayList<AST.ASTAttribute>();
                                               	AST.ASTAttribute attr = _AST.new ASTAttribute("title", $4);
                                               	newList.add($1);

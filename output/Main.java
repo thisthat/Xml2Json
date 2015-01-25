@@ -25,7 +25,9 @@ public class Main {
 
         System.out.println("Creating " + filename + ".json file");
         
-        String json = yyparser.root.toString();
+        PrettyPrinter pp = new PrettyPrinter(yyparser.root);
+        String json = pp.toJson();
+
         System.out.println(json);
     }
 }

@@ -1,3 +1,13 @@
+/*
+
+This class lunches the parsing of the file and then create the json rapresentation. 
+
+Notes: 
+    - The output file name is the same of the input file, but different extension
+    - If it is forced a stream reading, the file is called 'converted.json'
+
+*/
+
 import java.io.*;
 import java.util.*;
 public class Main {
@@ -25,7 +35,9 @@ public class Main {
 
         System.out.println("Creating " + filename + ".json file");
         
-        String json = yyparser.root.toString();
+        PrettyPrinter pp = new PrettyPrinter(yyparser.root);
+        String json = pp.toJson();
+
         System.out.println(json);
     }
 }
