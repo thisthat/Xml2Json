@@ -25,7 +25,7 @@ Il Main legge in input un file e lo passa al parser.
 Il parser utilizza i token creati dal lexer.
 Il parser costruisce l'albero di sintassi astratta (AST) utilizzando la struttura dati del file AST.java
 Una volta creato l'AST, il main crea il file json di output e richiama il PrettyPrinter.
-Il PrettyPrinter legge l'AST e lo converte la stringa di conversione in JSON.
+Il PrettyPrinter legge l'AST e lo converte in JSON.
 
 
 # Motivazione
@@ -42,11 +42,12 @@ Non avendo avuto tempo, ho creato solo una classe PrettyPrint che esporta il met
 ```Java
 String toJSON();
 ```
-Questo metodo esegue una visita dell'albero e lo stampa seguendo le specifiche JSON
+Questo metodo esegue una visita dell'albero e lo stampa seguendo le specifiche JSON.
+<hr>
 Per ogni dubbio aprite un issue nell'issue tracker, in questo modo:
   - mi arriva una mail che mi avvisa
   - si tiene traccia di tutte le domande/risposte
   - si tiene traccia di tutti i problemi riscontrati
   - si tiene traccia di tutti i consigli che mi date
 
-Spero sia tutto :neckbeard:
+Spero sia tutto chiaro :neckbeard:
