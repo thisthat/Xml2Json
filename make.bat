@@ -49,11 +49,6 @@ REM move %~dp0*.class %~dp0output\
 
 REM And finally run
 
-echo --------------
-echo Build 0.1.%NewBuild%
-echo --------------
-
-
 CALL run.bat
 
 

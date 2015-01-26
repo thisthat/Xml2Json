@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE book SYSTEM "book.dtd">
-<book edition="cia omondo">
+<book edition="ciao mondo">
  	<dedication>
  		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam varius turpis vel tellus aliquam,
 		sit amet condimentum turpis eleifend. Vivamus lobortis lacus eu mi placerat malesuada. Nullam

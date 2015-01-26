@@ -15,6 +15,7 @@ public class Main {
     
     public static void main(String args[]) throws IOException {
 
+        BufferedWriter writer = null;
         String filename = "converted";
         System.out.println("Parsing the file..");
 
@@ -27,17 +28,22 @@ public class Main {
         else {
             yyparser = new Parser(new InputStreamReader(System.in));
         }
-
+        filename += ".json";
         yyparser.yyparse();
     
         //Finish to parse the file
         System.out.println("Parsing done.");
 
-        System.out.println("Creating " + filename + ".json file");
+        System.out.println("Creating " + filename + " file");
+
+        File jsonFile = new File(filename);
         
         PrettyPrinter pp = new PrettyPrinter(yyparser.root);
         String json = pp.toJson();
 
-        System.out.println(json);
+        writer = new BufferedWriter(new FileWriter(jsonFile));
+        writer.write(json);
+        writer.close();
+        System.out.println("Done.");
     }
 }

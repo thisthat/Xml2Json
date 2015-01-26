@@ -155,12 +155,12 @@ public class AST {
         public Row(){
             items = new ArrayList<Cell>();
         }
-        public Row(List<Cell> list){
-            items = list;
+        public Row(List i){
+            items = i;
         }
     }
     public class Cell extends ASTElement {
-        private String value;
+        public String value;
         public Cell(String v){
             this.value = v;
         }

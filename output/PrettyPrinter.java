@@ -41,7 +41,7 @@ public class PrettyPrinter {
         for(AST.ASTAttribute c: root.attributes){
                 out += toJson(c,tab);
         }
-        out += "content: [\n";
+        out += indent(tab) + "\"content\": [\n";
         //
         int last = root.items.size();
         int lastElm = last-1;
@@ -89,14 +89,14 @@ public class PrettyPrinter {
     public String toJson(AST.AuthorNotes notes, int tab){
         String out = indent(tab) + "{\n";
         out += indent(tab+1) + "\"tag\": \"authornotes\",\n";
-        out += indent(tab+1) + "content: [\n";
+        out += indent(tab+1) + "\"content\": [\n";
         int last = notes.items.size();
         int lastElm = last-1;
         for(int i = 0; i < last; i++){
             out += toJson( (AST.Note) notes.items.get(i), tab + 2, lastElm == i);
         }
         out += indent(tab+1) + "]\n";
-        out += indent(tab) + "},\n";
+        out += indent(tab) + "}\n";
         return out;
     }
 
@@ -120,7 +120,7 @@ public class PrettyPrinter {
         for(AST.ASTAttribute c: part.attributes){
                 out += toJson(c,tab+1);
         }
-        out += indent(tab+1) + "content: [\n";
+        out += indent(tab+1) + "\"content\": [\n";
         int last = part.items.size();
         int lastElm = last-1;
         for(int j = 0; j < last; j++){
@@ -139,7 +139,7 @@ public class PrettyPrinter {
                 //Chapter items
                 for(int i = 0; i < ((java.util.ArrayList)c).size(); i++){
                     Object item = ((java.util.ArrayList)c).get(i);
-                    out += toJson((AST.Chapter) item, tab + 1, lastElm == i);
+                    out += toJson((AST.Chapter) item, tab + 2, lastElm == i);
                 }
             }
         }
@@ -236,11 +236,22 @@ public class PrettyPrinter {
         return out;
     }
 
-    public String toJson(AST.Chapter lof, int tab, Boolean isLastElm){
+    public String toJson(AST.Chapter chapter, int tab, Boolean isLastElm){
         String out = indent(tab) + "{\n";
-        out += indent(tab+1) + "\"tag\": \"lof\",\n";
+        out += indent(tab+1) + "\"tag\": \"chapter\",\n";
+        for(AST.ASTAttribute c: chapter.attributes){
+                out += toJson(c,tab+1);
+        }
         out += indent(tab+1) + "\"content\": [\n";
-        out += "DA IMPLE";
+        int last = chapter.items.size();
+        int lastElm = last-1;
+        for(int j = 0; j < last; j++){
+            Object c = chapter.items.get(j);
+            //Only Sections in Chapters 
+            if(c instanceof AST.Section){
+                out += toJson( (AST.Section) c, tab+2, lastElm == j);
+            }            
+        }
         out += indent(tab+1) + "]\n";
         out += indent(tab) + "}";
         if(isLastElm){
@@ -250,6 +261,127 @@ public class PrettyPrinter {
             out += ",\n";
         }
         return out;
+    }
+
+    public String toJson(AST.Section section, int tab, Boolean isLastElm){
+        String out = indent(tab) + "{\n";
+        out += indent(tab+1) + "\"tag\": \"section\",\n";
+        for(AST.ASTAttribute c: section.attributes){
+                out += toJson(c,tab+1);
+        }
+        out += indent(tab+1) + "\"content\": [\n";
+        int last = section.items.size();
+        int lastElm = last-1;
+        for(int j = 0; j < last; j++){
+            Object c = section.items.get(j);
+            if(c instanceof AST.Figure){
+                out += toJson( (AST.Figure) c, tab+2, lastElm == j);
+            }
+            if(c instanceof AST.Table){
+                out += toJson( (AST.Table) c, tab+2, lastElm == j);
+            }
+            if(c instanceof AST.Section){
+                out += toJson( (AST.Section) c, tab+2, lastElm == j);
+            }
+            if(c instanceof java.lang.String){
+                out += toJson( (String) c, tab + 2, lastElm == j);
+            }     
+            
+        }
+        out += indent(tab+1) + "]\n";
+        out += indent(tab) + "}";
+        if(isLastElm){
+            out += "\n";
+        }
+        else {
+            out += ",\n";
+        }
+        return out;
+    }
+
+    public String toJson(AST.Figure figure, int tab, Boolean isLastElm){
+        String out = indent(tab) + "{\n";
+        out += indent(tab+1) + "\"tag\": \"figure\",\n";
+        for(AST.ASTAttribute c: figure.attributes){
+                out += toJson(c,tab+1);
+        }
+        out += indent(tab) + "}";
+        if(isLastElm){
+            out += "\n";
+        }
+        else {
+            out += ",\n";
+        }
+        return out;
+    }
+
+    public String toJson(AST.Table table, int tab, Boolean isLastElm){
+        String out = indent(tab) + "{\n";
+        out += indent(tab+1) + "\"tag\": \"table\",\n";
+        for(AST.ASTAttribute c: table.attributes){
+                out += toJson(c,tab+1);
+        }
+        out += indent(tab+1) + "\"content\": [\n";
+        int last = table.items.size();
+        int lastElm = last-1;
+        for(int j = 0; j < last; j++){
+            Object c = table.items.get(j);
+            if(c instanceof AST.Row){
+                out += toJson( (AST.Row) c, tab+2, lastElm == j);
+            }
+            
+        }
+        out += indent(tab+1) + "]\n";
+        out += indent(tab) + "}";
+        if(isLastElm){
+            out += "\n";
+        }
+        else {
+            out += ",\n";
+        }
+        return out;
+    }
+
+    public String toJson(AST.Row row, int tab, Boolean isLastElm){
+        String out = indent(tab) + "{\n";
+        out += indent(tab+1) + "\"tag\": \"row\",\n";
+        out += indent(tab+1) + "\"content\": [\n";
+        int last = row.items.size();
+        int lastElm = last-1;
+        for(int j = 0; j < last; j++){
+            Object c = row.items.get(j);
+            if(c instanceof AST.Cell){
+                out += toJson( (AST.Cell) c, tab+2, lastElm == j);
+            }
+        }
+        out += indent(tab+1) + "]\n";
+        out += indent(tab) + "}";
+        if(isLastElm){
+            out += "\n";
+        }
+        else {
+            out += ",\n";
+        }
+        return out;
+    }
+
+    public String toJson(AST.Cell cell, int tab, Boolean isLastElm){
+        String out = indent(tab) + "{\n";
+        out += indent(tab+1) + "\"tag\": \"cell\",\n";
+        out += indent(tab+1) + "\"content\" : \"" + cell.value + "\"\n";
+        out += indent(tab) + "}";
+        if(isLastElm){
+            out += "\n";
+        }
+        else {
+            out += ",\n";
+        }
+        return out;
+    }
+
+
+    public String toJson(String txt, int tab, Boolean isLastElm){
+        return indent(tab) + "\"" + txt + "\"" + ( isLastElm ? "\n" : ",\n") ;
     }
 
 }
