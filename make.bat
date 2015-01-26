@@ -21,7 +21,7 @@ echo %NewBuild% > version.txt
 
 REM setting the right path to variables
 
-set FILE_NAME=calc
+set FILE_NAME=xml2json
 set JFLEX_HOME= %~dp0bin\
 set CLPATH=%JAVA_HOME%\lib\classes.zip;%JFLEX_HOME%\lib\JFlex.jar
 

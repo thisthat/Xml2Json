@@ -15,5 +15,5 @@ java -cp output Main test/book1.xml
 echo ------------------
 echo. 
 echo --- Book2 TEST ---
-java -cp output Main test/book1.xml
+java -cp output Main test/book2.xml
 echo --------------

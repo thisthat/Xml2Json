@@ -16,7 +16,7 @@
 
 
 
-//#line 15 "calc.y"
+//#line 15 "xml2json.y"
   import java.io.*;
   import java.util.*;
 //#line 20 "Parser.java"
@@ -432,7 +432,7 @@ final static String yyrule[] = {
 "idAttr : ID QUOTE str QUOTE",
 };
 
-//#line 473 "calc.y"
+//#line 473 "xml2json.y"
 
   private Yylex lexer;
   public static AST _AST = new AST();
@@ -614,31 +614,31 @@ boolean doaction;
       {
 //########## USER-SUPPLIED ACTIONS ##########
 case 1:
-//#line 113 "calc.y"
+//#line 113 "xml2json.y"
 { root = (AST.Root) val_peek(0).obj; }
 break;
 case 2:
-//#line 119 "calc.y"
+//#line 119 "xml2json.y"
 {}
 break;
 case 3:
-//#line 121 "calc.y"
+//#line 121 "xml2json.y"
 {}
 break;
 case 4:
-//#line 123 "calc.y"
+//#line 123 "xml2json.y"
 { }
 break;
 case 5:
-//#line 133 "calc.y"
+//#line 133 "xml2json.y"
 { yyval.obj = _AST.new Root( (List) val_peek(4).obj, (List) val_peek(2).obj );}
 break;
 case 6:
-//#line 135 "calc.y"
+//#line 135 "xml2json.y"
 { yyval.obj = new ArrayList(); }
 break;
 case 7:
-//#line 136 "calc.y"
+//#line 136 "xml2json.y"
 { 
          									List newList = new ArrayList<AST.ASTAttribute>();
          									AST.ASTAttribute attr = _AST.new ASTAttribute("edition", val_peek(1).sval);
@@ -647,7 +647,7 @@ case 7:
                                         }
 break;
 case 8:
-//#line 143 "calc.y"
+//#line 143 "xml2json.y"
 { 
 													List newList = new ArrayList();
 													newList.add(val_peek(3).obj);
@@ -658,7 +658,7 @@ case 8:
 												}
 break;
 case 9:
-//#line 151 "calc.y"
+//#line 151 "xml2json.y"
 { 
           								List newList = new ArrayList();
 										newList.add(val_peek(2).obj);
@@ -668,7 +668,7 @@ case 9:
 									}
 break;
 case 10:
-//#line 158 "calc.y"
+//#line 158 "xml2json.y"
 { 
           								List newList = new ArrayList();
 										newList.add(val_peek(2).obj);
@@ -678,7 +678,7 @@ case 10:
 									}
 break;
 case 11:
-//#line 165 "calc.y"
+//#line 165 "xml2json.y"
 { 
           					List newList = new ArrayList();
 							newList.add(val_peek(1).obj);
@@ -687,15 +687,15 @@ case 11:
 						}
 break;
 case 12:
-//#line 175 "calc.y"
+//#line 175 "xml2json.y"
 { yyval.obj = _AST.new Dedication(val_peek(2).sval); }
 break;
 case 13:
-//#line 180 "calc.y"
+//#line 180 "xml2json.y"
 { yyval.obj = _AST.new Preface(val_peek(2).sval); }
 break;
 case 14:
-//#line 189 "calc.y"
+//#line 189 "xml2json.y"
 {
 						List newList = new ArrayList();
                   		newList.add(val_peek(0).obj); 
@@ -703,7 +703,7 @@ case 14:
 					}
 break;
 case 15:
-//#line 194 "calc.y"
+//#line 194 "xml2json.y"
 { 	
       					List l = (List)val_peek(1).obj;
 	          			l.add(val_peek(0).obj);
@@ -711,11 +711,11 @@ case 15:
 	          		}
 break;
 case 16:
-//#line 201 "calc.y"
+//#line 201 "xml2json.y"
 { yyval.obj = _AST.new Part( (List) val_peek(4).obj , (List) val_peek(2).obj); }
 break;
 case 17:
-//#line 203 "calc.y"
+//#line 203 "xml2json.y"
 { 
 												List newList = new ArrayList<AST.ASTAttribute>();
                                               	newList.add(val_peek(0).obj);
@@ -723,7 +723,7 @@ case 17:
 											}
 break;
 case 18:
-//#line 208 "calc.y"
+//#line 208 "xml2json.y"
 { 	
          										List newList = new ArrayList<AST.ASTAttribute>();
                                               	AST.ASTAttribute attr = _AST.new ASTAttribute("title", val_peek(1).sval);
@@ -733,7 +733,7 @@ case 18:
 											}
 break;
 case 19:
-//#line 216 "calc.y"
+//#line 216 "xml2json.y"
 { 
 										List newList = new ArrayList();
 										newList.add(val_peek(1).obj);
@@ -743,7 +743,7 @@ case 19:
 									}
 break;
 case 20:
-//#line 223 "calc.y"
+//#line 223 "xml2json.y"
 { 
           								/*$$ = _AST.new PartItems( (AST.TOC) $1, (List) $2, (AST.LOF) $3); */
           								List newList = new ArrayList();
@@ -754,7 +754,7 @@ case 20:
           							}
 break;
 case 21:
-//#line 231 "calc.y"
+//#line 231 "xml2json.y"
 { 
           								/*$$ = _AST.new PartItems( (AST.TOC) $1, (List) $2, (AST.LOT) $3); */
           								List newList = new ArrayList();
@@ -765,7 +765,7 @@ case 21:
           							}
 break;
 case 22:
-//#line 239 "calc.y"
+//#line 239 "xml2json.y"
 { 
           								/*$$ = _AST.new PartItems( (AST.TOC) $1, (List) $2, (AST.LOF) $3, (AST.LOT) $4); */
           								List newList = new ArrayList();
@@ -777,19 +777,19 @@ case 22:
           							}
 break;
 case 23:
-//#line 254 "calc.y"
+//#line 254 "xml2json.y"
 { yyval.obj = _AST.new TOC( (List) val_peek(2).obj);  }
 break;
 case 24:
-//#line 256 "calc.y"
+//#line 256 "xml2json.y"
 { yyval.obj = _AST.new LOF( (List) val_peek(2).obj);  }
 break;
 case 25:
-//#line 258 "calc.y"
+//#line 258 "xml2json.y"
 { yyval.obj = _AST.new LOT( (List) val_peek(2).obj);  }
 break;
 case 26:
-//#line 266 "calc.y"
+//#line 266 "xml2json.y"
 { 
 					List newList = new ArrayList();
                   	newList.add(val_peek(0).obj); 
@@ -797,7 +797,7 @@ case 26:
 	            }
 break;
 case 27:
-//#line 271 "calc.y"
+//#line 271 "xml2json.y"
 {
 						List l = (List)val_peek(1).obj;
 	          			l.add(val_peek(0).obj);
@@ -805,7 +805,7 @@ case 27:
 	          		}
 break;
 case 28:
-//#line 277 "calc.y"
+//#line 277 "xml2json.y"
 { 
 														List newList = new ArrayList<AST.ASTAttribute>();
 														newList.add(val_peek(4).obj);
@@ -813,7 +813,7 @@ case 28:
 													}
 break;
 case 29:
-//#line 290 "calc.y"
+//#line 290 "xml2json.y"
 {
 						List newList = new ArrayList();
 	                    newList.add(val_peek(0).obj); 
@@ -821,7 +821,7 @@ case 29:
 					}
 break;
 case 30:
-//#line 295 "calc.y"
+//#line 295 "xml2json.y"
 {
          						List l = (List)val_peek(1).obj;
                       			l.add(val_peek(0).obj);
@@ -829,11 +829,11 @@ case 30:
 					        }
 break;
 case 31:
-//#line 301 "calc.y"
+//#line 301 "xml2json.y"
 { yyval.obj = _AST.new Chapter( (List) val_peek(4).obj , (List) val_peek(2).obj ); }
 break;
 case 32:
-//#line 303 "calc.y"
+//#line 303 "xml2json.y"
 {
 												List newList = new ArrayList<AST.ASTAttribute>();
                                               	AST.ASTAttribute attr = _AST.new ASTAttribute("title", val_peek(1).sval);
@@ -843,7 +843,7 @@ case 32:
 											}
 break;
 case 33:
-//#line 318 "calc.y"
+//#line 318 "xml2json.y"
 { 
 					List newList = new ArrayList();
                     newList.add(val_peek(0).obj); 
@@ -851,7 +851,7 @@ case 33:
                    }
 break;
 case 34:
-//#line 323 "calc.y"
+//#line 323 "xml2json.y"
 { 
          					 	List l = (List)val_peek(1).obj;
                       			l.add(val_peek(0).obj);
@@ -859,13 +859,13 @@ case 34:
                   			}
 break;
 case 35:
-//#line 330 "calc.y"
+//#line 330 "xml2json.y"
 {
 						 yyval.obj = _AST.new Section( (List) val_peek(4).obj , (List) val_peek(2).obj );
 					}
 break;
 case 36:
-//#line 334 "calc.y"
+//#line 334 "xml2json.y"
 {
 												List newList = new ArrayList<AST.ASTAttribute>();
                                               	AST.ASTAttribute attr = _AST.new ASTAttribute("title", val_peek(1).sval);
@@ -875,11 +875,11 @@ case 36:
 											}
 break;
 case 37:
-//#line 342 "calc.y"
+//#line 342 "xml2json.y"
 { yyval.obj = new ArrayList(); }
 break;
 case 38:
-//#line 343 "calc.y"
+//#line 343 "xml2json.y"
 { 
               						List l = (List)val_peek(1).obj;
 									l.add(val_peek(0).sval);
@@ -887,7 +887,7 @@ case 38:
               					  }
 break;
 case 39:
-//#line 348 "calc.y"
+//#line 348 "xml2json.y"
 { 
               							List l = (List)val_peek(1).obj;
 										l.add(val_peek(0).obj);
@@ -895,7 +895,7 @@ case 39:
 									}
 break;
 case 40:
-//#line 353 "calc.y"
+//#line 353 "xml2json.y"
 { 
               							List l = (List)val_peek(1).obj;
 										l.add(val_peek(0).obj);
@@ -903,7 +903,7 @@ case 40:
 									 }
 break;
 case 41:
-//#line 358 "calc.y"
+//#line 358 "xml2json.y"
 { 
               							List l = (List)val_peek(1).obj;
 										l.add(val_peek(0).obj);
@@ -911,13 +911,13 @@ case 41:
 									}
 break;
 case 42:
-//#line 372 "calc.y"
+//#line 372 "xml2json.y"
 {
 												yyval.obj = _AST.new Figure((List)val_peek(2).obj);
 											}
 break;
 case 43:
-//#line 376 "calc.y"
+//#line 376 "xml2json.y"
 { 
 												List newList = new ArrayList<AST.ASTAttribute>();
                                               	AST.ASTAttribute attr = _AST.new ASTAttribute("caption", val_peek(1).sval);
@@ -927,7 +927,7 @@ case 43:
 											}
 break;
 case 44:
-//#line 383 "calc.y"
+//#line 383 "xml2json.y"
 {
            															List newList = new ArrayList<AST.ASTAttribute>();
 					                                              	AST.ASTAttribute caption = _AST.new ASTAttribute("caption", val_peek(5).sval);
@@ -939,11 +939,11 @@ case 44:
 																}
 break;
 case 45:
-//#line 401 "calc.y"
+//#line 401 "xml2json.y"
 { yyval.obj = _AST.new Table((List) val_peek(4).obj, (List) val_peek(2).obj);}
 break;
 case 46:
-//#line 403 "calc.y"
+//#line 403 "xml2json.y"
 { 
                                               List newList = new ArrayList<AST.ASTAttribute>();
                                               AST.ASTAttribute attr = _AST.new ASTAttribute("caption", val_peek(1).sval);
@@ -953,14 +953,14 @@ case 46:
                                             }
 break;
 case 47:
-//#line 411 "calc.y"
+//#line 411 "xml2json.y"
 {  List newList = new ArrayList();
                     newList.add(val_peek(0).obj); 
                     yyval.obj = newList;  
                   }
 break;
 case 48:
-//#line 415 "calc.y"
+//#line 415 "xml2json.y"
 {
                               List l = (List)val_peek(1).obj;
                               l.add(val_peek(0).obj);
@@ -968,11 +968,11 @@ case 48:
                             }
 break;
 case 49:
-//#line 425 "calc.y"
+//#line 425 "xml2json.y"
 { yyval.obj = _AST.new Row((List)val_peek(2).obj);}
 break;
 case 50:
-//#line 427 "calc.y"
+//#line 427 "xml2json.y"
 { 
                      List newList = new ArrayList();
                      newList.add(val_peek(0).obj); 
@@ -980,7 +980,7 @@ case 50:
                    }
 break;
 case 51:
-//#line 432 "calc.y"
+//#line 432 "xml2json.y"
 { 
                       List l = (List)val_peek(1).obj;
                       l.add(val_peek(0).obj);
@@ -988,15 +988,15 @@ case 51:
                    }
 break;
 case 52:
-//#line 438 "calc.y"
+//#line 438 "xml2json.y"
 { yyval.obj = _AST.new Cell(val_peek(2).sval); }
 break;
 case 53:
-//#line 444 "calc.y"
+//#line 444 "xml2json.y"
 { yyval.obj = _AST.new AuthorNotes((List)val_peek(2).obj); }
 break;
 case 54:
-//#line 450 "calc.y"
+//#line 450 "xml2json.y"
 {
 						List newList = new ArrayList();
                      	newList.add(val_peek(0).obj); 
@@ -1004,7 +1004,7 @@ case 54:
                     }
 break;
 case 55:
-//#line 455 "calc.y"
+//#line 455 "xml2json.y"
 { 
       					List l = (List)val_peek(1).obj;
                       	l.add(val_peek(0).obj);
@@ -1012,19 +1012,19 @@ case 55:
                     }
 break;
 case 56:
-//#line 462 "calc.y"
+//#line 462 "xml2json.y"
 { yyval.obj =  _AST.new Note(val_peek(2).sval); }
 break;
 case 57:
-//#line 466 "calc.y"
+//#line 466 "xml2json.y"
 { yyval.sval = val_peek(0).sval; }
 break;
 case 58:
-//#line 467 "calc.y"
+//#line 467 "xml2json.y"
 { yyval.sval = val_peek(1).sval + " " + val_peek(0).sval; }
 break;
 case 59:
-//#line 469 "calc.y"
+//#line 469 "xml2json.y"
 { yyval.obj = _AST.new ASTAttribute("id", val_peek(1).sval); }
 break;
 //#line 954 "Parser.java"
