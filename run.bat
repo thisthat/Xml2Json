@@ -11,9 +11,9 @@ java -cp output Main test.txt
 echo -----------------
 echo.
 echo --- Book1 TEST ---
-java -cp output Main test/book1.xml
+REM java -cp output Main test/book1.xml
 echo ------------------
 echo. 
 echo --- Book2 TEST ---
-java -cp output Main test/book2.xml
+REM java -cp output Main test/book2.xml
 echo --------------

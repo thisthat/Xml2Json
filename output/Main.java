@@ -14,9 +14,10 @@ public class Main {
 
     
     public static void main(String args[]) throws IOException {
-
+        Boolean errors_idref = false;
         BufferedWriter writer = null;
         String filename = "converted";
+        
         System.out.println("Parsing the file..");
 
         Parser yyparser;
@@ -33,17 +34,37 @@ public class Main {
     
         //Finish to parse the file
         System.out.println("Parsing done.");
+        //Control IDREF
+        //System.out.println(Arrays.toString(yyparser.ids.toArray()));
+        //System.out.println(Arrays.toString(yyparser.ref_ids.toArray()));
+        errors_idref = checkIDREF(yyparser.ids, yyparser.ref_ids);
 
-        System.out.println("Creating " + filename + " file");
+        if(yyparser.errors || errors_idref){
+            System.out.println("The file is not conform to the DTD.\nNo Json conversion is possible");
+        }
+        else {
+            System.out.println("Creating " + filename + " file");
+            File jsonFile = new File(filename);
+            
+            PrettyPrinter pp = new PrettyPrinter(yyparser.root);
+            String json = pp.toJson();
 
-        File jsonFile = new File(filename);
-        
-        PrettyPrinter pp = new PrettyPrinter(yyparser.root);
-        String json = pp.toJson();
+            writer = new BufferedWriter(new FileWriter(jsonFile));
+            writer.write(json);
+            writer.close();
+            System.out.println("Done.");
+        }
 
-        writer = new BufferedWriter(new FileWriter(jsonFile));
-        writer.write(json);
-        writer.close();
-        System.out.println("Done.");
+    }
+
+    public static Boolean checkIDREF(List<String> ids,List<String> ref_ids){
+        Boolean ret = false;
+        for(int i=0;i<ref_ids.size();i++){
+            if(!ids.contains(ref_ids.get(i))){
+                System.out.println("Missing element with ID: " + ref_ids.get(i));
+                ret = true;
+            }
+        }
+        return ret;
     }
 }

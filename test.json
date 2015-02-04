@@ -56,7 +56,7 @@
 				},
 				{
 					"tag": "chapter",
-					"@id" : "p1_c1",
+					"@id" : "p1_c1_rem",
 					"@title" : "Capitolo 1",
 					"content": [
 						{

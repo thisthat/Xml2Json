@@ -206,12 +206,12 @@ public final static short VERSION=302;
 public final static short ENCODING=303;
 public final static short YYERRCODE=256;
 final static short yylhs[] = {                           -1,
-    0,   35,   36,   37,    2,    4,    4,    3,    3,    3,
-    3,    5,    6,   19,   19,   20,   21,   21,   22,   22,
-   22,   22,   23,   24,   25,   26,   26,   27,   28,   28,
-   29,   30,   31,   31,   32,   34,   33,   33,   33,   33,
-   33,   18,   17,   17,   11,   12,   10,   10,    9,    8,
-    8,    7,   16,   15,   15,   14,    1,    1,   13,
+    0,   36,   37,   38,    2,    4,    4,    3,    3,    3,
+    3,    5,    6,   20,   20,   21,   22,   22,   23,   23,
+   23,   23,   24,   25,   26,   27,   27,   28,   29,   29,
+   30,   31,   32,   32,   33,   35,   34,   34,   34,   34,
+   34,   19,   18,   18,   11,   12,   10,   10,    9,    8,
+    8,    7,   17,   16,   16,   15,    1,    1,   14,   13,
 };
 final static short yylen[] = {                            2,
     6,    4,    4,    7,    6,    0,    4,    4,    3,    3,
@@ -219,7 +219,7 @@ final static short yylen[] = {                            2,
     3,    4,    5,    5,    5,    1,    2,    6,    1,    2,
     6,    5,    1,    2,    6,    5,    0,    2,    2,    2,
     2,    4,    5,    9,    6,    5,    1,    2,    5,    1,
-    2,    5,    5,    1,    2,    5,    1,    2,    4,
+    2,    5,    5,    1,    2,    5,    1,    2,    4,    4,
 };
 final static short yydefred[] = {                         0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
@@ -231,113 +231,115 @@ final static short yydefred[] = {                         0,
    12,   13,    0,    0,    0,    0,    0,    0,   54,    0,
    59,    0,    0,    0,    0,    0,   29,    0,    0,   55,
    18,    0,    0,   26,   16,    0,    0,    0,    0,    0,
-   21,   30,    0,   53,    0,    0,   27,    0,    0,    0,
-    0,   22,    0,    0,   23,    0,    0,    0,   33,    0,
-    0,   56,    0,    0,    0,    0,    0,   34,    0,    0,
-    0,   32,    0,   37,   31,   24,   25,   28,    0,    0,
-    0,    0,    0,    0,   38,   40,   39,   41,   36,    0,
-    0,    0,    0,   35,    0,    0,    0,    0,    0,   42,
-    0,   47,    0,    0,    0,    0,    0,   48,    0,    0,
-    0,   50,    0,   45,   46,    0,    0,    0,   51,    0,
-    0,   49,    0,    0,   44,   52,
+   21,   30,    0,   53,    0,    0,    0,   27,    0,    0,
+    0,    0,   22,    0,    0,    0,   23,    0,    0,    0,
+   33,    0,    0,   56,    0,    0,    0,    0,    0,    0,
+   34,    0,    0,   60,    0,   32,    0,   37,   31,   24,
+   25,   28,    0,    0,    0,    0,    0,    0,   38,   40,
+   39,   41,   36,    0,    0,    0,    0,   35,    0,    0,
+    0,    0,    0,   42,    0,   47,    0,    0,    0,    0,
+    0,   48,    0,    0,    0,   50,    0,   45,   46,    0,
+    0,    0,   51,    0,    0,   49,    0,    0,   44,   52,
 };
 final static short yydgoto[] = {                          2,
-   27,   18,   30,   21,   31,   32,  162,  163,  152,  153,
-  136,  142,   49,   69,   70,   52,  141,  137,   41,   42,
-   50,   66,   67,   90,   91,   83,   84,   76,   77,   87,
-  108,  109,  130,  116,    4,    7,   14,
+   27,   18,   30,   21,   31,   32,  166,  167,  156,  157,
+  140,  146,   96,   49,   69,   70,   52,  145,  141,   41,
+   42,   50,   66,   67,   90,   91,   83,   84,   76,   77,
+   87,  110,  111,  134,  119,    4,    7,   14,
 };
-final static short yysindex[] = {                      -209,
- -277,    0, -212, -250, -207, -202, -196, -200, -199, -195,
-    0, -197, -193, -194,    0, -192, -229,    0, -190, -189,
- -191, -188, -187, -261, -184, -187, -182, -186, -179, -198,
- -183, -181, -176,    0,    0, -187, -187, -175, -181, -210,
- -225,    0,    0, -213, -185,    0, -225, -174, -208, -171,
- -169,    0,    0, -168, -167,    0, -187, -166, -173, -180,
-    0,    0, -164, -187, -160, -178, -165, -159,    0, -263,
-    0, -158, -177, -154, -210, -224,    0, -187, -152,    0,
-    0, -210, -235,    0,    0, -172, -151, -150, -149, -157,
-    0,    0, -170,    0, -148, -146,    0, -147, -156, -177,
- -177,    0, -144, -187,    0, -187, -210, -248,    0, -268,
- -245,    0, -163, -143, -162, -142, -140,    0, -139, -137,
- -132,    0, -133,    0,    0,    0,    0,    0, -187, -255,
- -131, -210, -210, -130,    0,    0,    0,    0,    0, -161,
- -129, -127, -155,    0, -128, -125, -135, -123, -187,    0,
- -118,    0, -232, -187, -117, -126, -114,    0, -115, -145,
- -112,    0, -249,    0,    0, -113, -187, -110,    0, -187,
- -141,    0, -109, -104,    0,    0,
+final static short yysindex[] = {                      -253,
+ -294,    0, -224, -247, -207, -205, -199, -203, -200, -198,
+    0, -197, -195, -196,    0, -194, -230,    0, -192, -191,
+ -193, -190, -189, -212, -187, -189, -186, -188, -183, -185,
+ -184, -182, -180,    0,    0, -189, -189, -177, -182, -213,
+ -231,    0,    0, -181, -179,    0, -231, -176, -211, -172,
+ -171,    0,    0, -170, -169,    0, -189, -168, -175, -178,
+    0,    0, -166, -189, -163, -174, -173, -162,    0, -275,
+    0, -160, -167, -155, -213, -220,    0, -189, -152,    0,
+    0, -165, -240,    0,    0, -206, -150, -149, -148, -157,
+    0,    0, -161,    0, -147, -146, -144,    0, -145, -154,
+ -167, -167,    0, -142, -189, -189,    0, -189, -213, -268,
+    0, -259, -263,    0, -141, -164, -140, -159, -136, -135,
+    0, -133, -132,    0, -131,    0, -129,    0,    0,    0,
+    0,    0, -189, -257, -127, -213, -213, -130,    0,    0,
+    0,    0,    0, -158, -125, -123, -156,    0, -124, -120,
+ -134, -117, -189,    0, -114,    0, -252, -189, -113, -126,
+ -112,    0, -110, -143, -107,    0, -249,    0,    0, -106,
+ -189, -105,    0, -189, -139,    0, -104, -101,    0,    0,
 };
 final static short yyrindex[] = {                         0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0, -103,    0,    0,    0,
+    0,    0,    0,    0,    0,    0, -100,    0,    0,    0,
     0,    0,    0,    0,    0, -260,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
- -122,    0,    0,    0,    0,    0, -121,    0, -100,    0,
+ -119,    0,    0,    0,    0,    0, -118,    0,  -97,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0, -120,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,    0,    0,    0, -119,
-    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0, -116,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0, -115,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,    0,    0,    0, -124,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0, -111,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
 };
 final static short yygindex[] = {                         0,
-  -26,    0,    0,    0,    0,  124,   -1,    0,   10,    0,
-    0,    0,  -74,   96,    0,  120,    0,    0,  129,  -34,
-    0,    0,    0,    0,   79,  -45,  -71,    0,   94,    0,
-    0, -106,    0,    0,    0,    0,    0,
+  -26,    0,    0,    0,    0,   90,   -2,    0,    9,    0,
+    0,    0,    0,  -74,   97,    0,  123,    0,    0,  132,
+    2,    0,    0,    0,    0,   82,  -55,  -71,    0,   98,
+    0,    0, -108,    0,    0,    0,    0,    0,
 };
-final static int YYTABLESIZE=170;
+final static int YYTABLESIZE=174;
 static short yytable[];
 static { yytable();}
 static void yytable(){
 yytable = new short[]{                         34,
-   86,  118,   57,   82,   28,   29,   53,   95,   26,   44,
-   45,   97,   53,   57,   57,   57,   68,  119,  107,  132,
-  133,   57,   57,  138,    3,  107,   82,   57,  161,   57,
-   63,   79,  115,   57,  134,   57,   82,   72,   97,   97,
-  117,  120,   40,  168,  151,   88,   89,    1,   75,   96,
-    5,   93,    6,   51,  110,  111,    8,  140,  143,  157,
-    9,   10,   11,   13,   12,   15,   16,   20,   54,   24,
-   17,   19,   22,   23,   36,   25,   26,  113,   33,  114,
-   35,   37,   38,   29,   43,   46,   40,   48,   57,   59,
-   58,   60,   61,   62,   82,   65,   64,   55,   71,   68,
-   73,   78,  131,  135,   81,   74,   85,   75,   94,   99,
-  100,  101,  104,   89,  105,  106,  112,  107,  124,  122,
-  125,  126,  155,  127,  121,  103,   98,  159,  128,  129,
-  144,  139,  146,  147,  149,  150,  123,   43,  145,  154,
-  171,  151,  156,  173,  148,  160,  164,  165,  167,  170,
-  172,  161,  174,  175,   39,  166,  176,    6,   11,    9,
-   17,  169,  158,   19,   20,   80,   56,   47,  102,   92,
+   86,  121,   57,    1,   68,  109,   26,    3,   82,   44,
+   45,   98,   82,   57,   57,   57,  109,  136,  137,   79,
+  120,   57,   57,  123,  155,  142,  122,   57,  165,   57,
+   63,   82,  138,   57,  118,   57,   40,   72,    5,  161,
+   98,   98,   53,  172,   97,  112,  113,   51,   53,   88,
+   89,   93,   75,   28,   29,    6,    8,    9,   10,   11,
+   13,  144,  147,   12,   16,   15,   20,   24,   17,   19,
+   22,   23,   36,   25,   26,   33,   35,   37,  115,  116,
+   43,  117,   29,   46,   48,   40,   57,   58,   59,   60,
+   61,   62,   99,   65,   64,   38,   71,   73,   78,   75,
+   54,   68,   81,   55,   82,   85,  135,  139,   94,   74,
+  100,  101,  102,   89,  106,  105,  107,  108,  114,  109,
+   39,  124,  126,  125,  128,  129,  159,  130,  131,  132,
+  148,  163,   95,  133,  104,  143,  150,  151,  153,  127,
+  154,  149,  155,  152,  175,  158,  160,  177,  168,  164,
+   43,  165,  169,  171,  178,  176,  174,  170,  179,  180,
+    6,   11,    9,   17,  173,  162,   80,   19,   20,   56,
+   47,  103,    0,   92,
 };
 }
 static short yycheck[];
 static { yycheck(); }
 static void yycheck() {
 yycheck = new short[] {                         26,
-   75,  108,  263,  272,  266,  267,   41,   82,  264,   36,
-   37,   83,   47,  274,  275,  276,  280,  286,  274,  275,
-  276,  282,  283,  130,  302,  274,  272,  288,  278,  290,
-   57,  295,  107,  294,  290,  296,  272,   64,  110,  111,
-  289,  287,  268,  293,  277,  270,  271,  257,  273,  285,
-  263,   78,  303,  279,  100,  101,  264,  132,  133,  292,
-  263,  258,  263,  259,  264,  263,  260,  297,  282,  261,
-  265,  264,  263,  263,  261,  264,  264,  104,  263,  106,
-  263,  261,  281,  267,  261,  261,  268,  298,  263,  261,
-  299,  261,  261,  261,  272,  269,  263,  283,  263,  280,
-  261,  261,  129,  130,  263,  284,  261,  273,  261,  261,
-  261,  261,  261,  271,  261,  263,  261,  274,  261,  263,
-  261,  261,  149,  261,  288,  296,  299,  154,  261,  263,
-  261,  263,  262,  261,  263,  261,  299,  262,  300,  263,
-  167,  277,  261,  170,  300,  263,  261,  263,  261,  263,
-  261,  278,  294,  263,   31,  301,  261,  261,  281,  281,
-  261,  163,  153,  284,  284,   70,   47,   39,   90,   76,
+   75,  110,  263,  257,  280,  274,  264,  302,  272,   36,
+   37,   83,  272,  274,  275,  276,  274,  275,  276,  295,
+  289,  282,  283,  287,  277,  134,  286,  288,  278,  290,
+   57,  272,  290,  294,  109,  296,  268,   64,  263,  292,
+  112,  113,   41,  293,  285,  101,  102,  279,   47,  270,
+  271,   78,  273,  266,  267,  303,  264,  263,  258,  263,
+  259,  136,  137,  264,  260,  263,  297,  261,  265,  264,
+  263,  263,  261,  264,  264,  263,  263,  261,  105,  106,
+  261,  108,  267,  261,  298,  268,  263,  299,  261,  261,
+  261,  261,  299,  269,  263,  281,  263,  261,  261,  273,
+  282,  280,  263,  283,  272,  261,  133,  134,  261,  284,
+  261,  261,  261,  271,  261,  263,  261,  263,  261,  274,
+   31,  263,  263,  288,  261,  261,  153,  261,  261,  261,
+  261,  158,  298,  263,  296,  263,  262,  261,  263,  299,
+  261,  300,  277,  300,  171,  263,  261,  174,  261,  263,
+  262,  278,  263,  261,  294,  261,  263,  301,  263,  261,
+  261,  281,  281,  261,  167,  157,   70,  284,  284,   47,
+   39,   90,   -1,   76,
 };
 }
 final static short YYFINAL=2;
@@ -387,8 +389,8 @@ final static String yyrule[] = {
 "parts : part",
 "parts : parts part",
 "part : OPEN_PART partAttr CLOSE partItems CLOSE_PART CLOSE",
-"partAttr : idAttr",
-"partAttr : idAttr TITLE QUOTE str QUOTE",
+"partAttr : idAttr_unique",
+"partAttr : idAttr_unique TITLE QUOTE str QUOTE",
 "partItems : toc chapters",
 "partItems : toc chapters lof",
 "partItems : toc chapters lot",
@@ -402,21 +404,21 @@ final static String yyrule[] = {
 "chapters : chapter",
 "chapters : chapters chapter",
 "chapter : OPEN_CHAPTER chapterAttr CLOSE sections CLOSE_CHAPTER CLOSE",
-"chapterAttr : idAttr TITLE QUOTE str QUOTE",
+"chapterAttr : idAttr_unique TITLE QUOTE str QUOTE",
 "sections : section",
 "sections : sections section",
 "section : OPEN_SECTION sectionAttr CLOSE sectionsItems CLOSE_SECTION CLOSE",
-"sectionAttr : idAttr TITLE QUOTE str QUOTE",
+"sectionAttr : idAttr_unique TITLE QUOTE str QUOTE",
 "sectionsItems :",
 "sectionsItems : sectionsItems str",
 "sectionsItems : sectionsItems figure",
 "sectionsItems : sectionsItems table",
 "sectionsItems : sectionsItems section",
 "figure : OPEN_FIGURE figureAttr SLASH CLOSE",
-"figureAttr : idAttr CAPTION QUOTE str QUOTE",
-"figureAttr : idAttr CAPTION QUOTE str QUOTE PATH QUOTE str QUOTE",
+"figureAttr : idAttr_unique CAPTION QUOTE str QUOTE",
+"figureAttr : idAttr_unique CAPTION QUOTE str QUOTE PATH QUOTE str QUOTE",
 "table : OPEN_TABLE tableAttr CLOSE tableItems CLOSE_TABLE CLOSE",
-"tableAttr : idAttr CAPTION QUOTE str QUOTE",
+"tableAttr : idAttr_unique CAPTION QUOTE str QUOTE",
 "tableItems : row",
 "tableItems : tableItems row",
 "row : OPEN_ROW CLOSE cells CLOSE_ROW CLOSE",
@@ -429,14 +431,19 @@ final static String yyrule[] = {
 "note : OPEN_NOTE CLOSE str CLOSE_NOTE CLOSE",
 "str : VALUE",
 "str : VALUE str",
+"idAttr_unique : ID QUOTE str QUOTE",
 "idAttr : ID QUOTE str QUOTE",
 };
 
-//#line 473 "xml2json.y"
+//#line 485 "xml2json.y"
 
   private Yylex lexer;
+  public List<String> ids = new ArrayList<String>();
+  public List<String> ref_ids = new ArrayList<String>();
   public static AST _AST = new AST();
   public AST.Root root;
+  public Boolean errors = false;
+
 
   private int yylex () {
     int yyl_return = -1;
@@ -452,14 +459,19 @@ final static String yyrule[] = {
 
   /* Custom error report function */
   public void yyerror (String error) {
+    errors = true;
     System.err.println ("Error: " + error + " :: Token value: " + lexer.yytext() + " @" + lexer._line_cnt );
+  }
+  public void yyerror_id(String error) {
+    errors = true;
+    System.err.println ("Error: " + error + " @" + lexer._line_cnt );
   }
 
 
   public Parser(Reader r) {
     lexer = new Yylex(r, this);
   }
-//#line 391 "Parser.java"
+//#line 403 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -614,31 +626,31 @@ boolean doaction;
       {
 //########## USER-SUPPLIED ACTIONS ##########
 case 1:
-//#line 113 "xml2json.y"
+//#line 114 "xml2json.y"
 { root = (AST.Root) val_peek(0).obj; }
 break;
 case 2:
-//#line 119 "xml2json.y"
+//#line 120 "xml2json.y"
 {}
 break;
 case 3:
-//#line 121 "xml2json.y"
+//#line 122 "xml2json.y"
 {}
 break;
 case 4:
-//#line 123 "xml2json.y"
+//#line 124 "xml2json.y"
 { }
 break;
 case 5:
-//#line 133 "xml2json.y"
+//#line 134 "xml2json.y"
 { yyval.obj = _AST.new Root( (List) val_peek(4).obj, (List) val_peek(2).obj );}
 break;
 case 6:
-//#line 135 "xml2json.y"
+//#line 136 "xml2json.y"
 { yyval.obj = new ArrayList(); }
 break;
 case 7:
-//#line 136 "xml2json.y"
+//#line 137 "xml2json.y"
 { 
          									List newList = new ArrayList<AST.ASTAttribute>();
          									AST.ASTAttribute attr = _AST.new ASTAttribute("edition", val_peek(1).sval);
@@ -647,7 +659,7 @@ case 7:
                                         }
 break;
 case 8:
-//#line 143 "xml2json.y"
+//#line 144 "xml2json.y"
 { 
 													List newList = new ArrayList();
 													newList.add(val_peek(3).obj);
@@ -658,7 +670,7 @@ case 8:
 												}
 break;
 case 9:
-//#line 151 "xml2json.y"
+//#line 152 "xml2json.y"
 { 
           								List newList = new ArrayList();
 										newList.add(val_peek(2).obj);
@@ -668,7 +680,7 @@ case 9:
 									}
 break;
 case 10:
-//#line 158 "xml2json.y"
+//#line 159 "xml2json.y"
 { 
           								List newList = new ArrayList();
 										newList.add(val_peek(2).obj);
@@ -678,7 +690,7 @@ case 10:
 									}
 break;
 case 11:
-//#line 165 "xml2json.y"
+//#line 166 "xml2json.y"
 { 
           					List newList = new ArrayList();
 							newList.add(val_peek(1).obj);
@@ -687,15 +699,15 @@ case 11:
 						}
 break;
 case 12:
-//#line 175 "xml2json.y"
+//#line 176 "xml2json.y"
 { yyval.obj = _AST.new Dedication(val_peek(2).sval); }
 break;
 case 13:
-//#line 180 "xml2json.y"
+//#line 181 "xml2json.y"
 { yyval.obj = _AST.new Preface(val_peek(2).sval); }
 break;
 case 14:
-//#line 189 "xml2json.y"
+//#line 190 "xml2json.y"
 {
 						List newList = new ArrayList();
                   		newList.add(val_peek(0).obj); 
@@ -703,7 +715,7 @@ case 14:
 					}
 break;
 case 15:
-//#line 194 "xml2json.y"
+//#line 195 "xml2json.y"
 { 	
       					List l = (List)val_peek(1).obj;
 	          			l.add(val_peek(0).obj);
@@ -711,11 +723,11 @@ case 15:
 	          		}
 break;
 case 16:
-//#line 201 "xml2json.y"
+//#line 202 "xml2json.y"
 { yyval.obj = _AST.new Part( (List) val_peek(4).obj , (List) val_peek(2).obj); }
 break;
 case 17:
-//#line 203 "xml2json.y"
+//#line 204 "xml2json.y"
 { 
 												List newList = new ArrayList<AST.ASTAttribute>();
                                               	newList.add(val_peek(0).obj);
@@ -723,7 +735,7 @@ case 17:
 											}
 break;
 case 18:
-//#line 208 "xml2json.y"
+//#line 209 "xml2json.y"
 { 	
          										List newList = new ArrayList<AST.ASTAttribute>();
                                               	AST.ASTAttribute attr = _AST.new ASTAttribute("title", val_peek(1).sval);
@@ -733,7 +745,7 @@ case 18:
 											}
 break;
 case 19:
-//#line 216 "xml2json.y"
+//#line 217 "xml2json.y"
 { 
 										List newList = new ArrayList();
 										newList.add(val_peek(1).obj);
@@ -743,7 +755,7 @@ case 19:
 									}
 break;
 case 20:
-//#line 223 "xml2json.y"
+//#line 224 "xml2json.y"
 { 
           								/*$$ = _AST.new PartItems( (AST.TOC) $1, (List) $2, (AST.LOF) $3); */
           								List newList = new ArrayList();
@@ -754,7 +766,7 @@ case 20:
           							}
 break;
 case 21:
-//#line 231 "xml2json.y"
+//#line 232 "xml2json.y"
 { 
           								/*$$ = _AST.new PartItems( (AST.TOC) $1, (List) $2, (AST.LOT) $3); */
           								List newList = new ArrayList();
@@ -765,7 +777,7 @@ case 21:
           							}
 break;
 case 22:
-//#line 239 "xml2json.y"
+//#line 240 "xml2json.y"
 { 
           								/*$$ = _AST.new PartItems( (AST.TOC) $1, (List) $2, (AST.LOF) $3, (AST.LOT) $4); */
           								List newList = new ArrayList();
@@ -777,19 +789,19 @@ case 22:
           							}
 break;
 case 23:
-//#line 254 "xml2json.y"
+//#line 255 "xml2json.y"
 { yyval.obj = _AST.new TOC( (List) val_peek(2).obj);  }
 break;
 case 24:
-//#line 256 "xml2json.y"
+//#line 257 "xml2json.y"
 { yyval.obj = _AST.new LOF( (List) val_peek(2).obj);  }
 break;
 case 25:
-//#line 258 "xml2json.y"
+//#line 259 "xml2json.y"
 { yyval.obj = _AST.new LOT( (List) val_peek(2).obj);  }
 break;
 case 26:
-//#line 266 "xml2json.y"
+//#line 267 "xml2json.y"
 { 
 					List newList = new ArrayList();
                   	newList.add(val_peek(0).obj); 
@@ -797,7 +809,7 @@ case 26:
 	            }
 break;
 case 27:
-//#line 271 "xml2json.y"
+//#line 272 "xml2json.y"
 {
 						List l = (List)val_peek(1).obj;
 	          			l.add(val_peek(0).obj);
@@ -805,7 +817,7 @@ case 27:
 	          		}
 break;
 case 28:
-//#line 277 "xml2json.y"
+//#line 278 "xml2json.y"
 { 
 														List newList = new ArrayList<AST.ASTAttribute>();
 														newList.add(val_peek(4).obj);
@@ -813,7 +825,7 @@ case 28:
 													}
 break;
 case 29:
-//#line 290 "xml2json.y"
+//#line 291 "xml2json.y"
 {
 						List newList = new ArrayList();
 	                    newList.add(val_peek(0).obj); 
@@ -821,7 +833,7 @@ case 29:
 					}
 break;
 case 30:
-//#line 295 "xml2json.y"
+//#line 296 "xml2json.y"
 {
          						List l = (List)val_peek(1).obj;
                       			l.add(val_peek(0).obj);
@@ -829,11 +841,11 @@ case 30:
 					        }
 break;
 case 31:
-//#line 301 "xml2json.y"
+//#line 302 "xml2json.y"
 { yyval.obj = _AST.new Chapter( (List) val_peek(4).obj , (List) val_peek(2).obj ); }
 break;
 case 32:
-//#line 303 "xml2json.y"
+//#line 304 "xml2json.y"
 {
 												List newList = new ArrayList<AST.ASTAttribute>();
                                               	AST.ASTAttribute attr = _AST.new ASTAttribute("title", val_peek(1).sval);
@@ -843,7 +855,7 @@ case 32:
 											}
 break;
 case 33:
-//#line 318 "xml2json.y"
+//#line 319 "xml2json.y"
 { 
 					List newList = new ArrayList();
                     newList.add(val_peek(0).obj); 
@@ -851,7 +863,7 @@ case 33:
                    }
 break;
 case 34:
-//#line 323 "xml2json.y"
+//#line 324 "xml2json.y"
 { 
          					 	List l = (List)val_peek(1).obj;
                       			l.add(val_peek(0).obj);
@@ -859,13 +871,13 @@ case 34:
                   			}
 break;
 case 35:
-//#line 330 "xml2json.y"
+//#line 331 "xml2json.y"
 {
 						 yyval.obj = _AST.new Section( (List) val_peek(4).obj , (List) val_peek(2).obj );
 					}
 break;
 case 36:
-//#line 334 "xml2json.y"
+//#line 335 "xml2json.y"
 {
 												List newList = new ArrayList<AST.ASTAttribute>();
                                               	AST.ASTAttribute attr = _AST.new ASTAttribute("title", val_peek(1).sval);
@@ -875,11 +887,11 @@ case 36:
 											}
 break;
 case 37:
-//#line 342 "xml2json.y"
+//#line 343 "xml2json.y"
 { yyval.obj = new ArrayList(); }
 break;
 case 38:
-//#line 343 "xml2json.y"
+//#line 344 "xml2json.y"
 { 
               						List l = (List)val_peek(1).obj;
 									l.add(val_peek(0).sval);
@@ -887,7 +899,7 @@ case 38:
               					  }
 break;
 case 39:
-//#line 348 "xml2json.y"
+//#line 349 "xml2json.y"
 { 
               							List l = (List)val_peek(1).obj;
 										l.add(val_peek(0).obj);
@@ -895,7 +907,7 @@ case 39:
 									}
 break;
 case 40:
-//#line 353 "xml2json.y"
+//#line 354 "xml2json.y"
 { 
               							List l = (List)val_peek(1).obj;
 										l.add(val_peek(0).obj);
@@ -903,7 +915,7 @@ case 40:
 									 }
 break;
 case 41:
-//#line 358 "xml2json.y"
+//#line 359 "xml2json.y"
 { 
               							List l = (List)val_peek(1).obj;
 										l.add(val_peek(0).obj);
@@ -911,13 +923,13 @@ case 41:
 									}
 break;
 case 42:
-//#line 372 "xml2json.y"
+//#line 373 "xml2json.y"
 {
 												yyval.obj = _AST.new Figure((List)val_peek(2).obj);
 											}
 break;
 case 43:
-//#line 376 "xml2json.y"
+//#line 377 "xml2json.y"
 { 
 												List newList = new ArrayList<AST.ASTAttribute>();
                                               	AST.ASTAttribute attr = _AST.new ASTAttribute("caption", val_peek(1).sval);
@@ -927,7 +939,7 @@ case 43:
 											}
 break;
 case 44:
-//#line 383 "xml2json.y"
+//#line 384 "xml2json.y"
 {
            															List newList = new ArrayList<AST.ASTAttribute>();
 					                                              	AST.ASTAttribute caption = _AST.new ASTAttribute("caption", val_peek(5).sval);
@@ -939,11 +951,11 @@ case 44:
 																}
 break;
 case 45:
-//#line 401 "xml2json.y"
+//#line 402 "xml2json.y"
 { yyval.obj = _AST.new Table((List) val_peek(4).obj, (List) val_peek(2).obj);}
 break;
 case 46:
-//#line 403 "xml2json.y"
+//#line 404 "xml2json.y"
 { 
                                               List newList = new ArrayList<AST.ASTAttribute>();
                                               AST.ASTAttribute attr = _AST.new ASTAttribute("caption", val_peek(1).sval);
@@ -953,14 +965,14 @@ case 46:
                                             }
 break;
 case 47:
-//#line 411 "xml2json.y"
+//#line 412 "xml2json.y"
 {  List newList = new ArrayList();
                     newList.add(val_peek(0).obj); 
                     yyval.obj = newList;  
                   }
 break;
 case 48:
-//#line 415 "xml2json.y"
+//#line 416 "xml2json.y"
 {
                               List l = (List)val_peek(1).obj;
                               l.add(val_peek(0).obj);
@@ -968,11 +980,11 @@ case 48:
                             }
 break;
 case 49:
-//#line 425 "xml2json.y"
+//#line 426 "xml2json.y"
 { yyval.obj = _AST.new Row((List)val_peek(2).obj);}
 break;
 case 50:
-//#line 427 "xml2json.y"
+//#line 428 "xml2json.y"
 { 
                      List newList = new ArrayList();
                      newList.add(val_peek(0).obj); 
@@ -980,7 +992,7 @@ case 50:
                    }
 break;
 case 51:
-//#line 432 "xml2json.y"
+//#line 433 "xml2json.y"
 { 
                       List l = (List)val_peek(1).obj;
                       l.add(val_peek(0).obj);
@@ -988,15 +1000,15 @@ case 51:
                    }
 break;
 case 52:
-//#line 438 "xml2json.y"
+//#line 439 "xml2json.y"
 { yyval.obj = _AST.new Cell(val_peek(2).sval); }
 break;
 case 53:
-//#line 444 "xml2json.y"
+//#line 445 "xml2json.y"
 { yyval.obj = _AST.new AuthorNotes((List)val_peek(2).obj); }
 break;
 case 54:
-//#line 450 "xml2json.y"
+//#line 451 "xml2json.y"
 {
 						List newList = new ArrayList();
                      	newList.add(val_peek(0).obj); 
@@ -1004,7 +1016,7 @@ case 54:
                     }
 break;
 case 55:
-//#line 455 "xml2json.y"
+//#line 456 "xml2json.y"
 { 
       					List l = (List)val_peek(1).obj;
                       	l.add(val_peek(0).obj);
@@ -1012,22 +1024,34 @@ case 55:
                     }
 break;
 case 56:
-//#line 462 "xml2json.y"
+//#line 463 "xml2json.y"
 { yyval.obj =  _AST.new Note(val_peek(2).sval); }
 break;
 case 57:
-//#line 466 "xml2json.y"
+//#line 467 "xml2json.y"
 { yyval.sval = val_peek(0).sval; }
 break;
 case 58:
-//#line 467 "xml2json.y"
+//#line 468 "xml2json.y"
 { yyval.sval = val_peek(1).sval + " " + val_peek(0).sval; }
 break;
 case 59:
-//#line 469 "xml2json.y"
-{ yyval.obj = _AST.new ASTAttribute("id", val_peek(1).sval); }
+//#line 470 "xml2json.y"
+{ 
+                                      if(ids.contains(val_peek(1).sval)){
+                                        yyerror_id("Duplicate ID: " + val_peek(1).sval);
+                                      }
+                                      else {
+                                        ids.add(val_peek(1).sval);
+                                        yyval.obj = _AST.new ASTAttribute("id", val_peek(1).sval);
+                                      }
+                                    }
 break;
-//#line 954 "Parser.java"
+case 60:
+//#line 481 "xml2json.y"
+{ ref_ids.add(val_peek(1).sval); yyval.obj = _AST.new ASTAttribute("id", val_peek(1).sval); }
+break;
+//#line 978 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####

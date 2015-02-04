@@ -86,6 +86,7 @@
 %type <obj>  table
 %type <obj>  tableAttr
 %type <obj>  idAttr
+%type <obj>  idAttr_unique
 %type <obj>  note
 %type <obj>  notes
 %type <obj>  authornotes
@@ -132,7 +133,7 @@ doctipe : OPEN_DOCTIPE BOOK VALUE QUOTE VALUE QUOTE CLOSE { }
 
 book : OPEN_BOOK bookAttr CLOSE bookItems CLOSE_BOOK CLOSE { $$ = _AST.new Root( (List) $2, (List) $4 );}
 
-bookAttr : /* empty */					{ $$ = new ArrayList(); }
+bookAttr : /* empty */					    { $$ = new ArrayList(); }
          | EDITION QUOTE str QUOTE	{ 
          									List newList = new ArrayList<AST.ASTAttribute>();
          									AST.ASTAttribute attr = _AST.new ASTAttribute("edition", $3);
@@ -200,12 +201,12 @@ parts : part        {
 
 part : OPEN_PART partAttr CLOSE partItems CLOSE_PART CLOSE { $$ = _AST.new Part( (List) $2 , (List) $4); }
 
-partAttr : idAttr 							{ 
+partAttr : idAttr_unique	{ 
 												List newList = new ArrayList<AST.ASTAttribute>();
                                               	newList.add($1);
 												$$ = newList;
 											}
-         | idAttr TITLE QUOTE str QUOTE 	{ 	
+         | idAttr_unique TITLE QUOTE str QUOTE 	{ 	
          										List newList = new ArrayList<AST.ASTAttribute>();
                                               	AST.ASTAttribute attr = _AST.new ASTAttribute("title", $4);
                                               	newList.add($1);
@@ -300,7 +301,7 @@ chapters : chapter 	{
 
 chapter : OPEN_CHAPTER chapterAttr CLOSE sections CLOSE_CHAPTER CLOSE { $$ = _AST.new Chapter( (List) $2 , (List) $4 ); }
 
-chapterAttr : idAttr TITLE QUOTE str QUOTE {
+chapterAttr : idAttr_unique TITLE QUOTE str QUOTE {
 												List newList = new ArrayList<AST.ASTAttribute>();
                                               	AST.ASTAttribute attr = _AST.new ASTAttribute("title", $4);
                                               	newList.add($1);
@@ -331,7 +332,7 @@ section : OPEN_SECTION sectionAttr CLOSE sectionsItems CLOSE_SECTION CLOSE
 						 $$ = _AST.new Section( (List) $2 , (List) $4 );
 					}
 
-sectionAttr : idAttr TITLE QUOTE str QUOTE {
+sectionAttr : idAttr_unique TITLE QUOTE str QUOTE {
 												List newList = new ArrayList<AST.ASTAttribute>();
                                               	AST.ASTAttribute attr = _AST.new ASTAttribute("title", $4);
                                               	newList.add($1);
@@ -373,14 +374,14 @@ figure : OPEN_FIGURE figureAttr SLASH CLOSE {
 												$$ = _AST.new Figure((List)$2);
 											}
 
-figureAttr : idAttr CAPTION QUOTE str QUOTE { 
+figureAttr : idAttr_unique CAPTION QUOTE str QUOTE { 
 												List newList = new ArrayList<AST.ASTAttribute>();
                                               	AST.ASTAttribute attr = _AST.new ASTAttribute("caption", $4);
                                               	newList.add($1);
                                               	newList.add(attr);
 												$$ = newList;
 											}
-           | idAttr CAPTION QUOTE str QUOTE PATH QUOTE str QUOTE {
+           | idAttr_unique CAPTION QUOTE str QUOTE PATH QUOTE str QUOTE {
            															List newList = new ArrayList<AST.ASTAttribute>();
 					                                              	AST.ASTAttribute caption = _AST.new ASTAttribute("caption", $4);
 					                                              	AST.ASTAttribute path = _AST.new ASTAttribute("path", $8);
@@ -400,7 +401,7 @@ figureAttr : idAttr CAPTION QUOTE str QUOTE {
 */
 table : OPEN_TABLE tableAttr CLOSE tableItems CLOSE_TABLE CLOSE { $$ = _AST.new Table((List) $2, (List) $4);}
 
-tableAttr : idAttr CAPTION QUOTE str QUOTE  { 
+tableAttr : idAttr_unique CAPTION QUOTE str QUOTE  { 
                                               List newList = new ArrayList<AST.ASTAttribute>();
                                               AST.ASTAttribute attr = _AST.new ASTAttribute("caption", $4);
                                               newList.add($1);
@@ -466,14 +467,29 @@ note : OPEN_NOTE CLOSE str CLOSE_NOTE CLOSE { $$ =  _AST.new Note($3); }
 str : VALUE        { $$ = $1; }
     | VALUE str    { $$ = $1 + " " + $2; }      
 
-idAttr :  ID QUOTE str QUOTE { $$ = _AST.new ASTAttribute("id", $3); }
+idAttr_unique :  ID QUOTE str QUOTE { 
+                                      if(ids.contains($3)){
+                                        yyerror_id("Duplicate ID: " + $3);
+                                      }
+                                      else {
+                                        ids.add($3);
+                                        $$ = _AST.new ASTAttribute("id", $3);
+                                      }
+                                    }
+
+
+idAttr :  ID QUOTE str QUOTE { ref_ids.add($3); $$ = _AST.new ASTAttribute("id", $3); }
 
 
 %%
 
   private Yylex lexer;
+  public List<String> ids = new ArrayList<String>();
+  public List<String> ref_ids = new ArrayList<String>();
   public static AST _AST = new AST();
   public AST.Root root;
+  public Boolean errors = false;
+
 
   private int yylex () {
     int yyl_return = -1;
@@ -489,7 +505,12 @@ idAttr :  ID QUOTE str QUOTE { $$ = _AST.new ASTAttribute("id", $3); }
 
   /* Custom error report function */
   public void yyerror (String error) {
+    errors = true;
     System.err.println ("Error: " + error + " :: Token value: " + lexer.yytext() + " @" + lexer._line_cnt );
+  }
+  public void yyerror_id(String error) {
+    errors = true;
+    System.err.println ("Error: " + error + " @" + lexer._line_cnt );
   }
 
 
